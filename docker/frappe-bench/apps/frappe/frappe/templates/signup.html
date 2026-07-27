@@ -1,0 +1,133 @@
+<form class="form-signin form-signup hide" role="form" novalidate>
+    <div class="page-card-body">
+        <div class="form-group">
+            <label class="form-label sr-only" for="signup_fullname">{{ _("Full Name") }}</label>
+            <input type="text" id="signup_fullname" class="form-control" placeholder="{{ _('Jane Doe') }}"
+                required autofocus autocomplete="name">
+            <p class="field-error"></p>
+        </div>
+        <div class="form-group">
+            <label class="form-label sr-only" for="signup_email">{{ _("Email") }}</label>
+            <input type="email" id="signup_email" class="form-control"
+                placeholder="{{ _('jane@example.com') }}" required autocomplete="username">
+            <p class="field-error"></p>
+        </div>
+        <div class="form-group">
+            <label class="form-label sr-only" for="signup_password">{{ _("Password") }}</label>
+            <div class="password-field">
+                <input type="password" id="signup_password" class="form-control"
+                    placeholder="{{ _('Password') }}" required autocomplete="new-password">
+                <svg class="icon icon-sm field-icon password-icon" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon-lock"></use>
+                </svg>
+                <svg toggle="#signup_password" class="icon icon-sm toggle-password" xmlns="http://www.w3.org/2000/svg">
+                    <use href="#icon-eye"></use>
+                </svg>
+            </div>
+            <div class="password-strength-group mt-2">
+                <div class="password-strength-container hidden">
+                    <div class="password-strength-label"></div>
+                    <div class="password-strength-bar-track">
+                        <div class="password-strength-bar-fill"></div>
+                    </div>
+                </div>
+                <p class="password-hint text-muted" style="font-size: 11px; margin-top: 5px;">
+                    <svg class="icon icon-sm" xmlns="http://www.w3.org/2000/svg" style="width: 12px; height: 12px;">
+                        <use href="#icon-circle-alert"></use>
+                    </svg>
+                    {{ _("Use minimum of 8 characters (case sensitive) with at least one number or special character.") }}
+                </p>
+                <p class="password-strength-message hidden text-danger" style="font-size: 11px;"></p>
+            </div>
+            <p class="field-error"></p>
+        </div>
+    </div>
+    <div class="page-card-actions">
+        <button class="btn btn-sm btn-primary btn-block btn-signup"
+            type="submit" disabled>{{ _("Create Account") }}</button>
+
+        <p class="text-center sign-up-message">
+            <a href="#login" class="blue">{{ _("Have an account? Login") }}</a>
+        </p>
+    </div>
+</form>
+
+<script>
+frappe.ready(function() {
+    const signup_password = $('#signup_password');
+    const password_strength_message = $('.password-strength-message');
+
+    window.strength_message = password_strength_message;
+
+    signup_password.on('keyup', function() {
+        if (window.clear_timeout) window.clear_timeout();
+        window.timout_password_strength = setTimeout(window.test_password_strength, 200);
+    });
+
+    window.test_password_strength = function() {
+        window.timout_password_strength = null;
+        var new_password = signup_password.val();
+
+        if (!new_password) {
+            set_strength_indicator('grey', {'warning': "{{ _('Please enter the password') }}" });
+            return;
+        }
+
+        return frappe.call({
+            method: 'frappe.core.doctype.user.user.test_password_strength',
+            args: { new_password: new_password },
+            statusCode: {
+                401: function() {},
+                200: function(r) {
+                    if (r.message && r.message.score !== undefined && r.message.score !== null) {
+                        var score = r.message.score;
+                        var feedback = r.message.feedback || {};
+                        var colors = ["red", "red", "orange", "blue", "green"];
+                        feedback.score = score;
+                        set_strength_indicator(colors[score], feedback);
+                    }
+                }
+            }
+        });
+    };
+
+    window.set_strength_indicator = function(color, feedback) {
+        var strength_map = {
+            red:    { label: "{{ _('Poor!') }}",   percentage: 25  },
+            orange: { label: "{{ _('Average') }}", percentage: 50  },
+            blue:   { label: "{{ _('Good') }}",    percentage: 75  },
+            green:  { label: "{{ _('Great!') }}",  percentage: 100 },
+        };
+
+        var container = $('.password-strength-container');
+
+        if (!strength_map[color]) {
+            container.addClass('hidden');
+            strength_message.addClass('hidden').html('');
+            return;
+        }
+
+        var config = strength_map[color];
+        container.find('.password-strength-label')
+            .text(config.label)
+            .attr('class', 'password-strength-label strength-' + color);
+        container.find('.password-strength-bar-fill')
+            .css('width', config.percentage + '%')
+            .attr('class', 'password-strength-bar-fill strength-' + color);
+        container.removeClass('hidden');
+
+        if (feedback && feedback.warning) {
+            strength_message.removeClass('hidden').text(feedback.warning);
+        } else {
+            strength_message.addClass('hidden').html('');
+        }
+    }
+
+    window.clear_timeout = function() {
+        if (window.timout_password_strength) {
+            clearTimeout(window.timout_password_strength);
+            window.timout_password_strength = null;
+        }
+    };
+});
+</script>
