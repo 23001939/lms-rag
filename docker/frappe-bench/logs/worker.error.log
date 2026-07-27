@@ -121684,3 +121684,47 @@ StartedJobRegistry cleanup: lms.localhost||scheduled_job||6ts6180g7c Moved to Fa
   cursor.executemany(insert_sql, values_to_insert)
 /workspace/frappe-bench/apps/frappe/frappe/search/sqlite_search.py:723: DeprecationWarning: The default datetime adapter is deprecated as of Python 3.12; see the sqlite3 documentation for suggested replacement recipes
   cursor.execute(
+/workspace/frappe-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=31) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspace/frappe-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=31) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspace/frappe-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=31) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspace/frappe-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=31) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspace/frappe-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=31) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspace/frappe-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=31) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspace/frappe-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=31) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspace/frappe-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=31) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspace/frappe-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=31) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspace/frappe-bench/env/lib/python3.14/site-packages/razorpay/client.py:4: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+/workspace/frappe-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=31) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspace/frappe-bench/env/lib/python3.14/site-packages/rq/worker.py:1602: DeprecationWarning: This process (pid=31) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  child_pid = os.fork()
+/workspace/frappe-bench/apps/frappe/frappe/search/sqlite_search.py:1373: DeprecationWarning: The default date adapter is deprecated as of Python 3.12; see the sqlite3 documentation for suggested replacement recipes
+  cursor.executemany(insert_sql, values_to_insert)
+/workspace/frappe-bench/apps/frappe/frappe/search/sqlite_search.py:1373: DeprecationWarning: The default datetime adapter is deprecated as of Python 3.12; see the sqlite3 documentation for suggested replacement recipes
+  cursor.executemany(insert_sql, values_to_insert)
+/workspace/frappe-bench/apps/frappe/frappe/search/sqlite_search.py:1373: DeprecationWarning: The default date adapter is deprecated as of Python 3.12; see the sqlite3 documentation for suggested replacement recipes
+  cursor.executemany(insert_sql, values_to_insert)
+/workspace/frappe-bench/apps/frappe/frappe/search/sqlite_search.py:1373: DeprecationWarning: The default datetime adapter is deprecated as of Python 3.12; see the sqlite3 documentation for suggested replacement recipes
+  cursor.executemany(insert_sql, values_to_insert)
+/workspace/frappe-bench/apps/frappe/frappe/search/sqlite_search.py:723: DeprecationWarning: The default datetime adapter is deprecated as of Python 3.12; see the sqlite3 documentation for suggested replacement recipes
+  cursor.execute(
+/workspace/frappe-bench/apps/frappe/frappe/search/sqlite_search.py:1373: DeprecationWarning: The default date adapter is deprecated as of Python 3.12; see the sqlite3 documentation for suggested replacement recipes
+  cursor.executemany(insert_sql, values_to_insert)
+/workspace/frappe-bench/apps/frappe/frappe/search/sqlite_search.py:1373: DeprecationWarning: The default datetime adapter is deprecated as of Python 3.12; see the sqlite3 documentation for suggested replacement recipes
+  cursor.executemany(insert_sql, values_to_insert)
+/workspace/frappe-bench/apps/frappe/frappe/search/sqlite_search.py:1373: DeprecationWarning: The default date adapter is deprecated as of Python 3.12; see the sqlite3 documentation for suggested replacement recipes
+  cursor.executemany(insert_sql, values_to_insert)
+/workspace/frappe-bench/apps/frappe/frappe/search/sqlite_search.py:1373: DeprecationWarning: The default datetime adapter is deprecated as of Python 3.12; see the sqlite3 documentation for suggested replacement recipes
+  cursor.executemany(insert_sql, values_to_insert)
+/workspace/frappe-bench/apps/frappe/frappe/search/sqlite_search.py:723: DeprecationWarning: The default datetime adapter is deprecated as of Python 3.12; see the sqlite3 documentation for suggested replacement recipes
+  cursor.execute(
