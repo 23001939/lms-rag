@@ -18,10 +18,3 @@ frappe-semgrep-rules
 docker/frappe-bench/sites/assets/
 *.log
 docker/frappe-bench/logs/
-
-# Bỏ qua file database local
-*.db
-docker/frappe-bench/sites/
-
-# Bỏ qua thư mục apps nếu đó là submodule
-docker/frappe-bench/apps/
