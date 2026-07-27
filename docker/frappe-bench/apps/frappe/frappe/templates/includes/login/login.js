@@ -309,10 +309,12 @@ login.login_handlers = (function () {
 				if (cint(data.message[0]) == 0) {
 					login.set_status(data.message[1], 'red');
 				} else {
-					login.set_status({{ _("Success") | tojson }}, 'green');
-					frappe.msgprint(data.message[1])
+					login.set_status(data.message[1], 'green');
+					frappe.msgprint(data.message[1]);
+					setTimeout(function() {
+						window.location.hash = '#login';
+					}, 1500);
 				}
-				//login.set_status(__(data.message), 'green');
 			}
 
 			//OTP verification

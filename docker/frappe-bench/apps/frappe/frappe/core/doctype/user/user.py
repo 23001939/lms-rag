@@ -1173,13 +1173,14 @@ def sign_up(email: str, full_name: str, redirect_to: str, password: str = "") ->
 		if default_role:
 			user.add_roles(default_role)
 
+		if frappe.db.exists("Role", "LMS Student"):
+			user.add_roles("LMS Student")
+
 		if redirect_to:
 			frappe.cache.hset("redirect_after_login", user.name, sanitize_redirect(redirect_to))
 
-		if user.flags.email_sent:
-			return 1, _("Please check your email for verification")
-		else:
-			return 2, _("Please ask your administrator to verify your sign-up")
+		# Trả về thông báo thành công, không gọi login_as nên không tạo session
+		return 1, _("Account created successfully. Please sign in.")
 
 
 @frappe.whitelist(allow_guest=True, methods=["POST"])

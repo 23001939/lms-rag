@@ -54,10 +54,35 @@
 
 <script>
 frappe.ready(function() {
+    const signup_fullname = $('#signup_fullname');
+    const signup_email = $('#signup_email');
     const signup_password = $('#signup_password');
+    const btn_signup = $('.btn-signup');
     const password_strength_message = $('.password-strength-message');
 
     window.strength_message = password_strength_message;
+
+    function validate_form_inputs() {
+        var name = signup_fullname.val().trim();
+        var email = signup_email.val().trim();
+        var password = signup_password.val().trim();
+        
+        // Kiểm tra cơ bản các trường
+        var basic_valid = name && email && password;
+        
+        // Kiểm tra xem có đang bị đánh giá là 'Poor' (score < 2) hay không
+        var is_poor_password = btn_signup.data('is-poor') === true;
+
+        if (!basic_valid || is_poor_password) {
+            btn_signup.prop("disabled", true);
+        } else {
+            btn_signup.prop("disabled", false);
+        }
+    }
+
+    signup_fullname.add(signup_email).add(signup_password).on('input', function() {
+        validate_form_inputs();
+    });
 
     signup_password.on('keyup', function() {
         if (window.clear_timeout) window.clear_timeout();
@@ -70,6 +95,8 @@ frappe.ready(function() {
 
         if (!new_password) {
             set_strength_indicator('grey', {'warning': "{{ _('Please enter the password') }}" });
+            btn_signup.data('is-poor', true);
+            validate_form_inputs();
             return;
         }
 
@@ -84,7 +111,16 @@ frappe.ready(function() {
                         var feedback = r.message.feedback || {};
                         var colors = ["red", "red", "orange", "blue", "green"];
                         feedback.score = score;
+                        
+                        // Nếu score < 2 (tương ứng với Poor / màu đỏ), đánh dấu là mật khẩu yếu
+                        if (score < 2) {
+                            btn_signup.data('is-poor', true);
+                        } else {
+                            btn_signup.data('is-poor', false);
+                        }
+
                         set_strength_indicator(colors[score], feedback);
+                        validate_form_inputs();
                     }
                 }
             }
@@ -93,10 +129,10 @@ frappe.ready(function() {
 
     window.set_strength_indicator = function(color, feedback) {
         var strength_map = {
-            red:    { label: "{{ _('Poor!') }}",   percentage: 25  },
-            orange: { label: "{{ _('Average') }}", percentage: 50  },
-            blue:   { label: "{{ _('Good') }}",    percentage: 75  },
-            green:  { label: "{{ _('Great!') }}",  percentage: 100 },
+            red:    { label: "{{ _('Yếu') }}",   percentage: 25  },
+            orange: { label: "{{ _('Trung bình') }}", percentage: 50  },
+            blue:   { label: "{{ _('Tốt') }}",    percentage: 75  },
+            green:  { label: "{{ _('Xuất sắc') }}",  percentage: 100 },
         };
 
         var container = $('.password-strength-container');
