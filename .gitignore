@@ -17,4 +17,6 @@ frappe-ui
 frappe-semgrep-rules
 docker/frappe-bench/sites/assets/
 *.log
-docker/frappe-bench/logs/
+docker/frappe-bench/logs/worker.error.log
+docker/frappe-bench/sites/lms.localhost/learning.db
+docker/frappe-bench/logs/worker.error.log
