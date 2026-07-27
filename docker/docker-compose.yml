@@ -1,0 +1,39 @@
+version: "3.7"
+name: lms
+services:
+  mariadb:
+    image: mariadb:10.8
+    ports:
+      - "3306:3306"
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+      - --skip-innodb-read-only-compressed # Temporary fix for MariaDB 10.6
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+    volumes:
+      - mariadb-data:/var/lib/mysql
+
+  redis:
+    image: redis:alpine
+
+  frappe:
+    image: frappe/bench:latest
+    command: bash /workspace/init.sh
+    environment:
+      - SHELL=/bin/bash
+      - HTTP_PROXY=http://10.53.120.1:8080
+      - HTTPS_PROXY=http://10.53.120.1:8080
+      - http_proxy=http://10.53.120.1:8080
+      - https_proxy=http://10.53.120.1:8080
+      - NO_PROXY=localhost,127.0.0.1,mariadb,redis
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    ports:
+      - 8000:8000
+      - 9000:9000
+
+volumes:
+  mariadb-data:

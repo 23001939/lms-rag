@@ -1,0 +1,171 @@
+2026-07-19 13:01:08,128 DEBUG cd frappe-bench && uv venv env --seed --python python3
+2026-07-19 13:01:18,571 LOG Getting frappe
+2026-07-19 13:01:18,572 DEBUG cd frappe-bench/apps && git clone https://github.com/frappe/frappe.git  --depth 1 --origin upstream
+2026-07-19 13:01:48,389 LOG Installing frappe
+2026-07-19 13:01:48,407 DEBUG cd /workspace/frappe-bench && uv pip install --quiet -e /workspace/frappe-bench/apps/frappe  --python /workspace/frappe-bench/env/bin/python
+2026-07-19 13:05:02,518 DEBUG cd /workspace/frappe-bench/apps/frappe && yarn install --check-files
+2026-07-19 13:08:56,916 DEBUG cd frappe-bench && bench build
+2026-07-19 13:08:57,153 INFO /home/frappe/.local/bin/bench build
+2026-07-19 13:09:58,075 LOG setting up backups
+2026-07-19 13:09:58,091 LOG backups were set up
+2026-07-19 13:09:58,092 INFO Bench frappe-bench initialized
+2026-07-19 13:09:58,666 INFO /home/frappe/.local/bin/bench set-mariadb-host mariadb
+2026-07-19 13:09:59,052 INFO /home/frappe/.local/bin/bench set-redis-cache-host redis://redis:6379
+2026-07-19 13:09:59,451 INFO /home/frappe/.local/bin/bench set-redis-queue-host redis://redis:6379
+2026-07-19 13:09:59,916 INFO /home/frappe/.local/bin/bench set-redis-socketio-host redis://redis:6379
+2026-07-19 13:10:00,442 INFO /home/frappe/.local/bin/bench get-app payments
+2026-07-19 13:10:01,098 LOG Getting payments
+2026-07-19 13:10:01,098 DEBUG cd ./apps && git clone https://github.com/frappe/payments.git  --depth 1 --origin upstream
+2026-07-19 13:10:03,139 LOG Installing payments
+2026-07-19 13:10:03,143 DEBUG cd /workspace/frappe-bench && uv pip install --quiet -e /workspace/frappe-bench/apps/payments  --python /workspace/frappe-bench/env/bin/python
+2026-07-19 13:10:17,574 DEBUG bench build --app payments
+2026-07-19 13:10:17,700 INFO /home/frappe/.local/bin/bench build --app payments
+2026-07-19 13:10:40,774 INFO /home/frappe/.local/bin/bench get-app lms
+2026-07-19 13:10:41,342 LOG Getting lms
+2026-07-19 13:10:41,342 DEBUG cd ./apps && git clone https://github.com/frappe/lms.git  --depth 1 --origin upstream
+2026-07-19 13:10:58,291 LOG Installing lms
+2026-07-19 13:10:58,298 DEBUG cd /workspace/frappe-bench && uv pip install --quiet -e /workspace/frappe-bench/apps/lms  --python /workspace/frappe-bench/env/bin/python
+2026-07-19 13:11:04,646 DEBUG cd /workspace/frappe-bench/apps/lms && yarn install --check-files
+2026-07-19 13:19:29,740 DEBUG bench build --app lms
+2026-07-19 13:19:29,898 INFO /home/frappe/.local/bin/bench build --app lms
+2026-07-19 13:21:24,659 INFO /home/frappe/.local/bin/bench new-site lms.localhost --force --mariadb-root-password 123 --admin-password admin --no-mariadb-socket
+2026-07-19 13:22:27,989 INFO /home/frappe/.local/bin/bench --site lms.localhost install-app payments
+2026-07-19 13:22:46,548 INFO /home/frappe/.local/bin/bench --site lms.localhost install-app lms
+2026-07-19 13:23:11,939 INFO /home/frappe/.local/bin/bench --site lms.localhost set-config developer_mode 1
+2026-07-19 13:23:14,112 INFO /home/frappe/.local/bin/bench --site lms.localhost clear-cache
+2026-07-19 13:23:19,499 INFO /home/frappe/.local/bin/bench use lms.localhost
+2026-07-19 13:23:21,530 INFO /home/frappe/.local/bin/bench start
+2026-07-19 13:23:21,821 INFO /home/frappe/.local/bin/bench serve --port 8000
+2026-07-19 13:23:21,822 INFO /home/frappe/.local/bin/bench schedule
+2026-07-19 13:23:21,839 INFO /home/frappe/.local/bin/bench socketio
+2026-07-19 13:23:21,847 INFO /home/frappe/.local/bin/bench worker
+2026-07-19 13:37:12,522 INFO /home/frappe/.local/bin/bench --help
+2026-07-19 13:38:08,781 INFO /home/frappe/.local/bin/bench clear-website-cache
+2026-07-19 13:39:03,783 INFO /home/frappe/.local/bin/bench watch
+2026-07-20 02:46:17,457 INFO /home/frappe/.local/bin/bench clear-website-cache
+2026-07-24 08:10:51,687 INFO /home/frappe/.local/bin/bench start
+2026-07-24 08:10:52,108 INFO /home/frappe/.local/bin/bench worker
+2026-07-24 08:10:52,112 INFO /home/frappe/.local/bin/bench watch
+2026-07-24 08:10:52,125 INFO /home/frappe/.local/bin/bench socketio
+2026-07-24 08:10:52,140 INFO /home/frappe/.local/bin/bench serve --port 8000
+2026-07-24 08:10:52,157 INFO /home/frappe/.local/bin/bench schedule
+2026-07-24 08:13:32,266 INFO /home/frappe/.local/bin/bench restart
+2026-07-24 08:14:12,181 INFO /home/frappe/.local/bin/bench --help
+2026-07-24 08:14:51,336 INFO /home/frappe/.local/bin/bench clear-cache
+2026-07-24 08:15:06,319 INFO /home/frappe/.local/bin/bench restart
+2026-07-24 08:21:16,482 INFO /home/frappe/.local/bin/bench build
+2026-07-24 08:37:23,504 INFO /home/frappe/.local/bin/bench watch
+2026-07-24 08:58:38,945 INFO /home/frappe/.local/bin/bench restart
+2026-07-24 08:58:48,936 INFO /home/frappe/.local/bin/bench clear-cache
+2026-07-24 08:59:13,483 INFO /home/frappe/.local/bin/bench start
+2026-07-24 08:59:13,849 INFO /home/frappe/.local/bin/bench watch
+--port 8000
+2026-07-24 08:59:13,850 INFO /home/frappe/.local/bin/bench schedule
+2026-07-24 08:59:13,865 INFO /home/frappe/.local/bin/bench worker
+2026-07-24 08:59:13,891 INFO /home/frappe/.local/bin/bench socketio
+2026-07-24 09:02:10,716 INFO /home/frappe/.local/bin/bench start
+2026-07-24 09:02:11,071 INFO /home/frappe/.local/bin/bench socketio
+ort 8000
+2026-07-24 09:02:11,131 INFO /home/frappe/.local/bin/bench schedule
+2026-07-24 09:03:56,874 INFO /home/frappe/.local/bin/bench start
+2026-07-24 09:03:57,220 INFO /home/frappe/.local/bin/bench socketio
+2026-07-24 09:03:57,220 INFO /home/frappe/.local/bin/bench schedule
+2026-07-24 09:03:57,224 INFO /home/frappe/.local/bin/bench watch
+2026-07-24 09:03:57,240 INFO /home/frappe/.local/bin/bench serve --port 8000
+2026-07-24 09:03:57,259 INFO /home/frappe/.local/bin/bench worker
+2026-07-24 09:04:15,213 INFO /home/frappe/.local/bin/bench clear-cache
+2026-07-24 09:05:59,087 INFO /home/frappe/.local/bin/bench start
+2026-07-24 09:05:59,395 INFO /home/frappe/.local/bin/bench serve --port 8000
+2026-07-24 09:05:59,422 INFO /home/frappe/.local/bin/bench worker
+2026-07-24 09:07:01,260 INFO /home/frappe/.local/bin/bench start
+2026-07-24 09:07:01,569 INFO /home/frappe/.local/bin/bench schedule
+ort 8000
+2026-07-24 09:07:01,581 INFO /home/frappe/.local/bin/bench worker
+2026-07-24 09:07:01,589 INFO /home/frappe/.local/bin/bench watch
+2026-07-24 09:07:01,598 INFO /home/frappe/.local/bin/bench socketio
+2026-07-24 09:08:42,105 INFO /home/frappe/.local/bin/bench start
+2026-07-24 09:08:42,448 INFO /home/frappe/.local/bin/bench worker
+2026-07-24 09:08:42,449 INFO /home/frappe/.local/bin/bench watch
+le
+2026-07-24 09:08:42,460 INFO /home/frappe/.local/bin/bench socketio
+2026-07-24 09:08:42,468 INFO /home/frappe/.local/bin/bench serve --port 8000
+2026-07-24 09:08:57,011 INFO /home/frappe/.local/bin/bench build
+2026-07-24 09:11:32,947 INFO /home/frappe/.local/bin/bench start
+2026-07-24 09:11:33,290 INFO /home/frappe/.local/bin/bench schedule
+2026-07-24 09:11:33,305 INFO /home/frappe/.local/bin/bench serve --port 8000
+2026-07-24 09:11:33,328 INFO /home/frappe/.local/bin/bench worker
+2026-07-24 09:11:43,254 INFO /home/frappe/.local/bin/bench start
+2026-07-24 09:11:43,558 INFO /home/frappe/.local/bin/bench serve --port 8000
+2026-07-24 09:11:43,559 INFO /home/frappe/.local/bin/bench socketio
+2026-07-24 09:11:43,563 INFO /home/frappe/.local/bin/bench worker
+2026-07-24 09:13:26,938 INFO /home/frappe/.local/bin/bench start
+2026-07-24 09:13:27,291 INFO /home/frappe/.local/bin/bench serve --port 8000
+2026-07-24 09:13:27,307 INFO /home/frappe/.local/bin/bench schedule
+2026-07-24 09:14:36,950 INFO /home/frappe/.local/bin/bench start
+2026-07-24 09:14:37,296 INFO /home/frappe/.local/bin/bench serve --port 8000
+2026-07-24 09:14:37,316 INFO /home/frappe/.local/bin/bench worker
+2026-07-24 09:16:40,493 INFO /home/frappe/.local/bin/bench restart
+2026-07-24 09:16:49,855 INFO /home/frappe/.local/bin/bench start
+2026-07-24 09:16:50,157 INFO /home/frappe/.local/bin/bench watch
+--port 8000
+2026-07-24 09:16:50,161 INFO /home/frappe/.local/bin/bench socketio
+2026-07-24 09:16:50,164 INFO /home/frappe/.local/bin/bench worker
+e
+2026-07-24 09:18:08,765 INFO /home/frappe/.local/bin/bench start
+2026-07-24 09:18:09,082 INFO /home/frappe/.local/bin/bench schedule
+2026-07-24 09:18:09,118 INFO /home/frappe/.local/bin/bench worker
+2026-07-24 09:18:09,175 INFO /home/frappe/.local/bin/bench serve --port 8000
+2026-07-24 09:22:29,025 INFO /home/frappe/.local/bin/bench restart
+2026-07-24 09:49:32,929 INFO /home/frappe/.local/bin/bench start
+2026-07-24 09:49:33,295 INFO /home/frappe/.local/bin/bench watch
+2026-07-24 09:49:33,298 INFO /home/frappe/.local/bin/bench serve --port 8000
+2026-07-24 09:49:33,318 INFO /home/frappe/.local/bin/bench socketio
+2026-07-24 09:49:33,321 INFO /home/frappe/.local/bin/bench worker
+e
+2026-07-24 09:53:04,543 INFO /home/frappe/.local/bin/bench start
+2026-07-24 09:53:04,873 INFO /home/frappe/.local/bin/bench socketio
+ort 8000
+2026-07-24 09:53:04,876 INFO /home/frappe/.local/bin/bench worker
+2026-07-24 10:01:42,419 INFO /home/frappe/.local/bin/bench clear-cache
+2026-07-24 10:01:52,662 INFO /home/frappe/.local/bin/bench start
+2026-07-24 10:01:53,001 INFO /home/frappe/.local/bin/bench serve --port 8000
+2026-07-24 10:01:53,004 INFO /home/frappe/.local/bin/bench worker
+2026-07-24 10:01:53,014 INFO /home/frappe/.local/bin/bench schedule
+2026-07-24 10:01:53,065 INFO /home/frappe/.local/bin/bench watch
+2026-07-24 10:04:18,741 INFO /home/frappe/.local/bin/bench start
+2026-07-24 10:04:19,076 INFO /home/frappe/.local/bin/bench serve --port 8000
+2026-07-24 10:04:19,080 INFO /home/frappe/.local/bin/bench socketio
+2026-07-24 10:13:00,288 INFO /home/frappe/.local/bin/bench build
+2026-07-25 12:46:01,335 INFO /home/frappe/.local/bin/bench start
+2026-07-25 12:46:01,706 INFO /home/frappe/.local/bin/bench schedule
+2026-07-25 12:46:01,708 INFO /home/frappe/.local/bin/bench serve --port 8000
+2026-07-25 12:46:01,734 INFO /home/frappe/.local/bin/bench watch
+2026-07-25 12:46:01,743 INFO /home/frappe/.local/bin/bench socketio
+2026-07-25 12:46:01,797 INFO /home/frappe/.local/bin/bench worker
+2026-07-25 13:40:07,376 INFO /home/frappe/.local/bin/bench build
+2026-07-25 13:58:56,109 INFO /home/frappe/.local/bin/bench start
+2026-07-25 13:58:56,480 INFO /home/frappe/.local/bin/bench socketio
+2026-07-25 13:58:56,502 INFO /home/frappe/.local/bin/bench worker
+2026-07-25 13:58:56,508 INFO /home/frappe/.local/bin/bench schedule
+2026-07-25 13:58:56,534 INFO /home/frappe/.local/bin/bench watch
+2026-07-25 13:58:56,543 INFO /home/frappe/.local/bin/bench serve --port 8000
+2026-07-25 14:03:27,805 INFO /home/frappe/.local/bin/bench start
+2026-07-25 14:03:28,116 INFO /home/frappe/.local/bin/bench watch
+--port 8000
+2026-07-25 14:03:28,142 INFO /home/frappe/.local/bin/bench socketio
+2026-07-25 14:03:28,153 INFO /home/frappe/.local/bin/bench schedule
+2026-07-25 14:04:54,687 INFO /home/frappe/.local/bin/bench build
+2026-07-25 14:10:39,720 INFO /home/frappe/.local/bin/bench start
+2026-07-25 14:10:40,058 INFO /home/frappe/.local/bin/bench serve --port 8000
+2026-07-25 14:10:40,067 INFO /home/frappe/.local/bin/bench schedule
+2026-07-25 14:10:40,093 INFO /home/frappe/.local/bin/bench socketio
+2026-07-25 14:16:25,153 INFO /home/frappe/.local/bin/bench clear-cache
+2026-07-25 14:19:20,499 INFO /home/frappe/.local/bin/bench clear-cache
+2026-07-25 14:37:11,968 INFO /home/frappe/.local/bin/bench clear-cache
+2026-07-25 14:38:17,723 INFO /home/frappe/.local/bin/bench start
+2026-07-25 14:38:18,034 INFO /home/frappe/.local/bin/bench watch
+2026-07-25 14:38:18,034 INFO /home/frappe/.local/bin/bench socketio
+ort 8000
+2026-07-25 14:38:18,044 INFO /home/frappe/.local/bin/bench schedule
+2026-07-25 14:38:18,066 INFO /home/frappe/.local/bin/bench worker
+2026-07-25 14:48:09,911 INFO /home/frappe/.local/bin/bench build

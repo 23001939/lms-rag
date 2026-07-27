@@ -1,0 +1,12 @@
+{
+ "db_name": "_d100d2879466358e",
+ "db_password": "1SdRW0OeIbqfwXpt",
+ "db_type": "mariadb",
+ "db_user": "_d100d2879466358e",
+ "developer_mode": 1,
+ "installed_apps": [
+  "frappe",
+  "payments",
+  "lms"
+ ]
+}
