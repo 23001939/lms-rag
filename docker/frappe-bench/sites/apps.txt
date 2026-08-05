@@ -1,3 +1,4 @@
 frappe
 lms
+lms_ai
 payments

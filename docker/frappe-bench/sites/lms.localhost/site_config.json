@@ -7,6 +7,8 @@
  "installed_apps": [
   "frappe",
   "payments",
-  "lms"
- ]
+  "lms",
+  "lms_ai"
+ ],
+ "llm_api_key": "sk-9592bf45588ff75b-4pgpft-bc39198e"
 }

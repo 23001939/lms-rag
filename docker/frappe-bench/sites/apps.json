@@ -27,5 +27,15 @@
         "required": [],
         "idx": 3,
         "version": "2.45.2"
+    },
+    "lms_ai": {
+        "is_repo": true,
+        "resolution": {
+            "commit_hash": "a0af58fd9898e5bbb4403be8c66cf702ddfb8e9e",
+            "branch": "N"
+        },
+        "required": [],
+        "idx": 4,
+        "version": "0.0.1"
     }
 }
