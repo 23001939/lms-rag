@@ -1,30 +1,30 @@
 import frappe
-import chromadb
-from chromadb.config import Settings
+from qdrant_client import QdrantClient
+from qdrant_client.http import models
 from openai import OpenAI
-from sentence_transformers import CrossEncoder
+from sentence_transformers import CrossEncoder, SentenceTransformer
 import os
 
-os.environ["no_proxy"] = "localhost,127.0.0.1,0.0.0.0,9router,chromadb,10.21.108.233,host.docker.internal"
-os.environ["NO_PROXY"] = "localhost,127.0.0.1,0.0.0.0,9router,chromadb,10.21.108.233,host.docker.internal"
-
+os.environ["no_proxy"] = "localhost,127.0.0.1,0.0.0.0,9router,qdrant,host.docker.internal"
+os.environ["NO_PROXY"] = "localhost,127.0.0.1,0.0.0.0,9router,qdrant,host.docker.internal"
 
 _reranker = None
+_embedding_model = None
 
 def get_reranker():
     global _reranker
     if _reranker is None:
-        # Lần đầu gọi sẽ load model
-        # _reranker = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')
         _reranker = CrossEncoder('cross-encoder/mmarco-mMiniLMv2-L12-H384-v1')
     return _reranker
 
-def get_chroma_client():
-    return chromadb.HttpClient(
-        host='chromadb',
-        port=8000, 
-        settings=Settings(allow_reset=True, anonymized_telemetry=False)
-    )
+def get_embedding_model():
+    global _embedding_model
+    if _embedding_model is None:
+        _embedding_model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
+    return _embedding_model
+
+def get_qdrant_client():
+    return QdrantClient(host='qdrant', port=6333)
 
 # ==========================================
 # 1. API LẤY LỊCH SỬ CHAT CHO FRONTEND
@@ -35,7 +35,6 @@ def get_chat_history():
     if user == "Guest":
         return []
         
-    # Lấy 10 tin nhắn gần nhất của người dùng này, sắp xếp cũ đến mới
     logs = frappe.get_all(
         "LMS Chat History",
         filters={"user": user},
@@ -57,12 +56,14 @@ def ask_ai(message: str, categories: list | str = None):
 
         context = ""
         references = []
+        api_url = frappe.conf.get("llm_api_url")
         api_key = frappe.conf.get("llm_api_key")
-        if not api_key:
-            fralog = "Chưa cấu hình 'llm_api_key' trong site_config.json"
+        
+        if not api_url or not api_key:
+            fralog = "Chưa cấu hình 'llm_api_url' hoặc 'llm_api_key' trong site_config.json"
             frappe.log_error(fralog, "LLM Configuration Error")
-            return {"source": "error", "reply": "Hệ thống chưa cấu hình API Key cho LLM. Vui lòng liên hệ quản trị viên."}
-        # Frappe có thể chuyển mảng JSON thành chuỗi, ta cần parse lại cho chắc chắn
+            return {"source": "error", "reply": "Hệ thống chưa cấu hình LLM. Vui lòng liên hệ quản trị viên."}
+
         if isinstance(categories, str):
             categories = frappe.parse_json(categories)
             
@@ -74,21 +75,34 @@ def ask_ai(message: str, categories: list | str = None):
         # ==========================================
         if len(categories) > 0:
             reranker = get_reranker()
-            client = get_chroma_client()
-            collection = client.get_collection(name="lms_rag_docs")
+            embed_model = get_embedding_model()
+            client = get_qdrant_client()
             
-            # Dùng toán tử $in nếu có nhiều category, hoặc so sánh trực tiếp nếu chỉ có 1
-            where_filter = {"category": {"$in": categories}} if len(categories) > 1 else {"category": categories[0]}
+            # Tạo vector embedding cho câu hỏi
+            query_vector = embed_model.encode(message).tolist()
             
-            # Truy xuất tài liệu
-            results = collection.query(
-                query_texts=[message],
-                n_results=10, 
-                where=where_filter 
+            # Xây dựng điều kiện lọc (Filter) cho Qdrant
+            qdrant_filter = models.Filter(
+                should=[
+                    models.FieldCondition(
+                        key="category",
+                        match=models.MatchValue(value=cat)
+                    )
+                    for cat in categories
+                ]
             )
             
-            retrieved_chunks = results['documents'][0] if results['documents'] else []
-            retrieved_metadatas = results['metadatas'][0] if results['metadatas'] else []
+            # Truy vấn Qdrant bằng query_points (Thay thế cho client.search cũ)
+            search_response = client.query_points(
+                collection_name="lms_rag_docs",
+                query=query_vector,
+                query_filter=qdrant_filter,
+                limit=10
+            )
+            search_results = search_response.points
+            
+            retrieved_chunks = [hit.payload["document"] for hit in search_results if hit.payload and "document" in hit.payload]
+            retrieved_metadatas = [hit.payload for hit in search_results if hit.payload]
 
             if retrieved_chunks:
                 chunk_meta_pairs = list(zip(retrieved_chunks, retrieved_metadatas))
@@ -107,10 +121,7 @@ def ask_ai(message: str, categories: list | str = None):
                     doc_title = meta.get("title") or doc_name
                     
                     if doc_name and doc_name not in seen_docs:
-                        # LẤY ĐƯỜNG DẪN TRỰC TIẾP CỦA FILE TỪ DATABASE
                         file_url = frappe.db.get_value("RAG Document", doc_name, "upload_tai_lieu")
-                        
-                        # Nếu có file thì trỏ thẳng vào file, nếu không thì dùng đường dẫn mặc định
                         final_url = file_url if file_url else f"/app/rag-document/{doc_name}"
                         
                         references.append({"title": doc_title, "url": final_url})
@@ -133,7 +144,7 @@ def ask_ai(message: str, categories: list | str = None):
         # GỌI LLM
         # ==========================================
         llm_client = OpenAI(
-            base_url="http://9router:20128/v1", 
+            base_url=api_url, 
             api_key=api_key,
             timeout=60.0
         )
@@ -141,33 +152,31 @@ def ask_ai(message: str, categories: list | str = None):
         base_instruction = (
             "Bạn là trợ lý AI thông minh.\n"
             "QUAN TRỌNG: Trước tiên hãy xem xét câu hỏi của người dùng. "
-            "Nếu câu hỏi mang tính chất xã giao, chào hỏi hoặc không liên quan đến nội dung tài liệu, "
-            "HÃY BỎ QUA 'Ngữ cảnh tài liệu' và trả lời một cách tự nhiên dựa trên kiến thức của bạn.\n"
+            "Nếu câu hỏi mang tính chất xã giao, chào hỏi hoặc không liên quan đến nội dung tài liệu HÃY BỎ QUA 'Ngữ cảnh tài liệu' để trả lời ngắn gọn dựa trên kiến thức của bạn, "
             "Nếu ngữ cảnh có thông tin, hãy bám sát vào đó. "
-            "Nếu ngữ cảnh không có hoặc thiếu thông tin, bạn **được phép** sử dụng kiến thức tổng quát sẵn có của mình để giải thích và hỗ trợ người dùng, nhưng tuyệt đối không được bịa đặt các cú pháp hoặc thông tin sai lệch về hệ thống nội bộ. "
-            "Nếu hoàn toàn không chắc chắn hoặc không có căn cứ, hãy trả lời 'tôi không rõ'."
+            "Nếu ngữ cảnh không có hoặc thiếu thông tin, bạn **được phép** sử dụng kiến thức tổng quát sẵn có của mình để giải thích và hỗ trợ người dùng, nhưng tuyệt đối không được bịa đặt các cú pháp hoặc thông tin sai lệch về hệ thống nội bộ."
+            "Nếu không chắc chắn hoặc không có căn cứ, hãy trả lời 'tôi không rõ' hoặc đưa ra câu hỏi làm rõ phạm vi cần trả lời cho người dùng."
         )
         if context:
             system_prompt = (
                 f"{base_instruction}\n"
-                f"Dựa vào ngữ cảnh tài liệu sau đây, hãy trả lời câu hỏi của người dùng:\n{context}"
+                f"Ngữ cảnh tài liệu:\n{context}"
             )
         else:
             system_prompt = (
                 f"{base_instruction}\n\n"
-                "Hiện không có tài liệu nội bộ nào khớp với câu hỏi này. Hãy trả lời dựa trên kiến thức chung của bạn một cách ngắn gọn, chính xác."
+                "Hiện không có tài liệu nội bộ nào khớp với câu hỏi này. Hãy trả lời dựa trên kiến thức chung của bạn một cách ngắn gọn, chính xác hoặc đưa ra câu hỏi làm rõ phạm vi cần trả lời cho người dùng."
             )
         messages = [{"role": "system", "content": system_prompt}]
         for log in recent_history:
             messages.append({"role": log.role, "content": log.message})
         
         messages.append({"role": "user", "content": message})
-        # frappe.logger().info(f"--- [DEBUG RAG] messages hoàn chỉnh gửi cho LLM:\n{messages}")
-        # frappe.log_error(f"--- [DEBUG RAG] messages hoàn chỉnh gửi cho LLM:\n{messages}","DEBUG RAG")
+        
         response = llm_client.chat.completions.create(
             model="my-combo",
             messages=messages,
-            temperature=0.2
+            temperature=0.1
         )
 
         reply_text = response.choices[0].message.content
@@ -204,15 +213,12 @@ def ask_ai(message: str, categories: list | str = None):
 @frappe.whitelist()
 def get_categories():
     try:
-        # Lấy tất cả category từ RAG Category, ignore_permissions=True để ai cũng xem được list này
         docs = frappe.get_all(
             "RAG Category", 
             fields=["category_name"], 
             distinct=True, 
             ignore_permissions=True
         )
-        
-        # Lọc ra danh sách mảng các chuỗi category không bị rỗng
         categories = [d.category_name for d in docs if d.category_name]
         return categories
     except Exception as e:

@@ -10,5 +10,6 @@
   "lms",
   "lms_ai"
  ],
- "llm_api_key": "sk-9592bf45588ff75b-4pgpft-bc39198e"
+ "llm_api_url": "http://9router:20128/v1",
+ "llm_api_key": "sk-8ecd5f2dc875e32a-x4tt8o-caf79226"
 }

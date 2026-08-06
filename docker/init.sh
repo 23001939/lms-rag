@@ -43,7 +43,7 @@ else
     # ---> THÊM ĐOẠN NÀY ĐỂ CÀI THƯ VIỆN AI <---
     echo "Installing AI dependencies..."
     # Cài đặt client ChromaDB, thư viện Gemini, chia text và cross-encoder cho Rerank
-    bench pip install chromadb openai sentence-transformers langchain-text-splitters pypdf langchain-community unstructured python-docx python-pptx openpyxl
+    bench pip install qdrant-client openai sentence-transformers langchain-text-splitters pypdf langchain-community unstructured python-docx python-pptx openpyxl
     
 fi
 
