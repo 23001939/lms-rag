@@ -93,14 +93,8 @@ else if (!window.LMS_CHAT_INITIALIZED) {
                 .chat-messages::-webkit-scrollbar-track, .chat-category-content::-webkit-scrollbar-track { background: transparent; }
                 .chat-messages::-webkit-scrollbar-thumb, .chat-category-content::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
                 
-                /* THANH CÔNG CỤ TẠO NHANH (AI ACTIONS) */
-                                .chat-quick-actions { padding: 8px 12px !important; background: #f8fafc !important; border-top: 1px solid #e2e8f0 !important; display: flex !important; gap: 6px !important; overflow-x: auto !important; white-space: nowrap !important; }
-                                .quick-action-btn { background: #eff6ff !important; color: #2563eb !important; border: 1px solid #dbeafe !important; padding: 4px 10px !important; border-radius: 12px !important; font-size: 12px !important; font-weight: 500 !important; cursor: pointer !important; display: inline-flex !important; align-items: center !important; gap: 4px !important; transition: all 0.2s; flex-shrink: 0; }
-                                .quick-action-btn:hover { background: #2563eb !important; color: white !important; border-color: #2563eb !important; }
-                                .quick-action-btn i { font-size: 11px !important; }
-
-                                /* KHU VỰC NHẬP TEXT */
-                                .chat-input-area { padding: 12px 15px !important; background: white !important; border-top: 1px solid #e2e8f0 !important; display: flex !important; gap: 10px !important; align-items: center; }
+                /* KHU VỰC NHẬP TEXT */
+                .chat-input-area { padding: 15px !important; background: white !important; border-top: 1px solid #e2e8f0 !important; display: flex !important; gap: 10px !important; align-items: center; }
                 .chat-input-area input { flex: 1 !important; padding: 12px 16px !important; border: 1px solid #cbd5e1 !important; border-radius: 24px !important; outline: none !important; color: #0f172a !important; font-size: 14px; transition: border-color 0.2s; background: #f8fafc; }
                 .chat-input-area input:focus { border-color: #2563eb !important; background: white; }
                 .chat-input-area button { background: #2563eb !important; color: white !important; border: none !important; border-radius: 50% !important; width: 42px !important; height: 42px !important; cursor: pointer !important; display: flex !important; align-items: center !important; justify-content: center !important; transition: background 0.2s, transform 0.2s; }
@@ -152,16 +146,8 @@ else if (!window.LMS_CHAT_INITIALIZED) {
                 <div id="category-checkbox-container" class="chat-category-content category-list">
                     <span style="font-size: 12px; color: #94a3b8;">Đang tải chủ đề...</span>
                 </div>
-                                <div class="chat-messages" id="chat-messages"></div>
+                <div class="chat-messages" id="chat-messages"></div>
                 <div class="typing" id="typing-indicator">AI đang suy nghĩ...</div>
-                
-                <!-- THANH CÔNG CỤ TẠO NHANH DỰA TRÊN TÀI LIỆU -->
-                <div class="chat-quick-actions">
-                    <button class="quick-action-btn" onclick="sendQuickAction('lesson')"><i class="fa-solid fa-book-open"></i> Tạo bài giảng</button>
-                    <button class="quick-action-btn" onclick="sendQuickAction('quiz')"><i class="fa-solid fa-circle-question"></i> Tạo Quiz trắc nghiệm</button>
-                    <button class="quick-action-btn" onclick="sendQuickAction('exercise')"><i class="fa-solid fa-pen-to-square"></i> Tạo bài tập</button>
-                </div>
-
                 <div class="chat-input-area">
                     <input type="text" id="chat-input" placeholder="Hỏi tôi bất cứ điều gì..." onkeypress="handleEnter(event)">
                     <button onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
@@ -412,87 +398,9 @@ else if (!window.LMS_CHAT_INITIALIZED) {
         }
     };
 
-        window.handleEnter = function(e) {
-            if (e.key === 'Enter') sendMessage();
-        }
-
-        // HÀM TỰ ĐỘNG ĐIỀN DỮ LIỆU VÀO FORM LMS
-        window.injectIntoLMSForm = function(btn) {
-            const msgContent = btn.closest('.msg-content');
-            if (!msgContent) return;
-        
-            // Lấy toàn bộ nội dung text thuần hoặc HTML của câu trả lời (loại bỏ phần tài liệu tham khảo và nút bấm)
-            const clone = msgContent.cloneNode(true);
-            const refDiv = clone.querySelector('div[style*="border-top: 1px dashed"]');
-            if (refDiv) refDiv.remove();
-            const btnDiv = clone.querySelector('div[style*="justify-content: flex-end"]');
-            if (btnDiv) btnDiv.remove();
-        
-            const cleanText = clone.innerHTML.trim();
-            const plainText = clone.innerText.trim();
-
-            let filledCount = 0;
-
-            // 1. Tìm các textarea hoặc input tiêu đề / nội dung bài học / câu hỏi trên trang
-            const textareas = document.querySelectorAll('textarea, input[type="text"]');
-            textareas.forEach(el => {
-                // Kiểm tra xem trường này có phải là nơi nhập nội dung bài học, mô tả, câu hỏi hay không
-                const placeholder = (el.getAttribute('placeholder') || '').toLowerCase();
-                const name = (el.getAttribute('name') || '').toLowerCase();
-                const id = (el.getAttribute('id') || '').toLowerCase();
-            
-                if (placeholder.includes('nội dung') || placeholder.includes('mô tả') || placeholder.includes('soạn') || 
-                    name.includes('content') || name.includes('description') || name.includes('question') || 
-                    id.includes('content') || id.includes('description') || id.includes('question')) {
-                
-                    if (el.value === '' || confirm('Trường nhập liệu đã có dữ liệu. Bạn có muốn ghi đè nội dung từ AI vào không?')) {
-                        el.value = plainText;
-                        el.dispatchEvent(new Event('input', { bubbles: true }));
-                        el.dispatchEvent(new Event('change', { bubbles: true }));
-                        filledCount++;
-                    }
-                }
-            });
-
-            // 2. Tìm các Frappe Rich Text Editor / Quill Editor nếu có
-            const editors = document.querySelectorAll('.ql-editor, .frappe-control textarea');
-            editors.forEach(ed => {
-                ed.innerHTML = cleanText;
-                ed.dispatchEvent(new Event('input', { bubbles: true }));
-                filledCount++;
-            });
-
-            if (filledCount > 0) {
-                alert(`Đã tự động điền nội dung thành công vào ${filledCount} trường trên form LMS!`);
-            } else {
-                // Fallback: Copy vào clipboard nếu không tìm thấy ô phù hợp
-                navigator.clipboard.writeText(plainText).then(() => {
-                    alert('Không tìm thấy ô nhập liệu tương thích trên trang hiện tại. Nội dung đã được copy vào clipboard để bạn dán (Paste) thủ công!');
-                });
-            }
-        };
-
-    // HÀM XỬ LÝ GỬI YÊU CẦU TẠO NHANH DỰA TRÊN TÀI LIỆU ĐÃ CHỌN
-    window.sendQuickAction = function(actionType) {
-        const input = document.getElementById('chat-input');
-        let promptText = '';
-        
-        // Kiểm tra xem người dùng đang chọn chủ đề/tài liệu nào
-        const toggleText = document.getElementById('category-toggle-text')?.innerText || 'tài liệu đã chọn';
-        
-        if (actionType === 'lesson') {
-            promptText = `Dựa vào tài liệu thuộc chủ đề "${toggleText}", hãy soạn giúp tôi một bài giảng chi tiết bao gồm: Mục tiêu, Nội dung chính, Ví dụ minh họa và Tóm tắt bài học.`;
-        } else if (actionType === 'quiz') {
-            promptText = `Dựa vào tài liệu thuộc chủ đề "${toggleText}", hãy tạo giúp tôi 5 câu hỏi trắc nghiệm (có 4 đáp án A, B, C, D) kèm theo đáp án đúng và lời giải chi tiết.`;
-        } else if (actionType === 'exercise') {
-            promptText = `Dựa vào tài liệu thuộc chủ đề "${toggleText}", hãy thiết kế giúp tôi các bài tập thực hành hoặc câu hỏi tự luận kèm gợi ý trả lời.`;
-        }
-
-        if (promptText) {
-            input.value = promptText;
-            sendMessage();
-        }
-    };
+    window.handleEnter = function(e) {
+        if (e.key === 'Enter') sendMessage();
+    }
 
     window.renderMessage = function(sender, text, isHtml = false) {
         const msgDiv = document.createElement('div');
@@ -601,12 +509,11 @@ else if (!window.LMS_CHAT_INITIALIZED) {
                     finalReply = replyText.replace(/\n/g, '<br>');
                 }
 
-                // Thêm tài liệu tham khảo và nút Đưa vào Form LMS
                 if (r.message.references && r.message.references.length > 0 && categories.length > 0) {
                     finalReply += `<div style="margin-top: 15px; padding-top: 10px; border-top: 1px dashed #cbd5e1; font-size: 13px;">`;
                     finalReply += `<strong><i class="fa-solid fa-layer-group" style="margin-right: 5px; color: #2563eb;"></i> Tài liệu tham khảo:</strong>`;
                     finalReply += `<ul style="margin-top: 8px; padding-left: 20px !important; list-style-type: none; display: flex; flex-direction: column; gap: 5px;">`;
-                    
+
                     r.message.references.forEach(ref => {
                         finalReply += `<li style="margin-bottom: 0 !important;">
                             <a href="${ref.url}" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 5px;">
@@ -616,13 +523,6 @@ else if (!window.LMS_CHAT_INITIALIZED) {
                     });
                     finalReply += `</ul></div>`;
                 }
-
-                // Nút Đưa vào Form LMS
-                finalReply += `<div style="margin-top: 12px; padding-top: 8px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end;">
-                    <button onclick="injectIntoLMSForm(this)" style="background: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; transition: background 0.2s;">
-                        <i class="fa-solid fa-file-arrow-down"></i> Đưa vào Form LMS
-                    </button>
-                </div>`;
 
                 renderMessage('bot', '', true);
                 const botMsgs = document.querySelectorAll('.msg-bot');
