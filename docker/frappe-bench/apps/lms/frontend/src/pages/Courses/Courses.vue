@@ -4,29 +4,36 @@
 			<Breadcrumbs :items="breadcrumbs" />
 		</template>
 		<template #right-header>
-			<Dropdown
-				placement="right"
-				side="bottom"
-				v-if="canCreateCourse()"
-				:options="courseMenu"
-			>
-				<template v-slot="{ open }">
-					<Button variant="solid">
-						<template #prefix>
-							<span class="lucide-plus size-4" />
-						</template>
-						{{ __('Create') }}
-						<template #suffix>
-							<span
-								:class="[
-									'lucide-chevron-down ms-1 size-4 transform transition-transform',
-									open ? 'rotate-180' : '',
-								]"
-							/>
-						</template>
-					</Button>
-				</template>
-			</Dropdown>
+			<div v-if="canCreateCourse()" class="flex items-center gap-2">
+				<Button variant="subtle" @click="showAICourseModal = true">
+					<template #prefix>
+						<span class="lucide-sparkles size-4" />
+					</template>
+					{{ __('Tạo bằng AI') }}
+				</Button>
+				<Dropdown
+					placement="right"
+					side="bottom"
+					:options="courseMenu"
+				>
+					<template v-slot="{ open }">
+						<Button variant="solid">
+							<template #prefix>
+								<span class="lucide-plus size-4" />
+							</template>
+							{{ __('Create') }}
+							<template #suffix>
+								<span
+									:class="[
+										'lucide-chevron-down ms-1 size-4 transform transition-transform',
+										open ? 'rotate-180' : '',
+									]"
+								/>
+							</template>
+						</Button>
+					</template>
+				</Dropdown>
+			</div>
 		</template>
 	</LayoutHeader>
 	<div class="flex min-h-0 flex-1 flex-col p-5 pb-10">
@@ -110,6 +117,12 @@
 		v-if="showCourseImportModal"
 		v-model="showCourseImportModal"
 	/>
+
+	<AICourseGeneratorModal
+		v-if="showAICourseModal"
+		v-model="showAICourseModal"
+		:courses="courses"
+	/>
 </template>
 <script setup>
 import {
@@ -134,6 +147,7 @@ import LayoutHeader from '@/components/Layouts/LayoutHeader.vue'
 import { useRouter } from 'vue-router'
 import NewCourseModal from '@/pages/Courses/NewCourseModal.vue'
 import CourseImportModal from '@/pages/Courses/CourseImportModal.vue'
+import AICourseGeneratorModal from '@/pages/Courses/AICourseGeneratorModal.vue'
 
 const user = inject('$user')
 const dayjs = inject('$dayjs')
@@ -149,6 +163,7 @@ const courseCount = ref(0)
 const router = useRouter()
 const showCourseModal = ref(false)
 const showCourseImportModal = ref(false)
+const showAICourseModal = ref(false)
 
 onMounted(() => {
 	setFiltersFromQuery()

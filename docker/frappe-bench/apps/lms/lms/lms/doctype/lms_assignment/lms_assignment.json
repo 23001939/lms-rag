@@ -86,8 +86,8 @@
    "link_fieldname": "assignment"
   }
  ],
- "modified": "2026-02-05 11:37:36.492016",
- "modified_by": "sayali@frappe.io",
+ "modified": "2026-08-08 13:22:53.085869",
+ "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Assignment",
  "naming_rule": "Expression (old style)",
@@ -129,8 +129,10 @@
   },
   {
    "create": 1,
+   "delete": 1,
    "email": 1,
    "export": 1,
+   "if_owner": 1,
    "import": 1,
    "print": 1,
    "read": 1,

@@ -4,12 +4,14 @@
  "db_type": "mariadb",
  "db_user": "_d100d2879466358e",
  "developer_mode": 1,
+ "host_name": "http://127.0.0.1:8000",
+ "allow_local_file_access": 1,
  "installed_apps": [
   "frappe",
   "payments",
   "lms",
   "lms_ai"
  ],
- "llm_api_url": "http://9router:20128/v1",
- "llm_api_key": "sk-8ecd5f2dc875e32a-x4tt8o-caf79226"
+ "llm_api_key": "sk-8ecd5f2dc875e32a-x4tt8o-caf79226",
+ "llm_api_url": "http://9router:20128/v1"
 }

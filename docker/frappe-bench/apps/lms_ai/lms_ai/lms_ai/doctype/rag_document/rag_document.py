@@ -46,7 +46,31 @@ def ensure_qdrant_collection_exists(client: QdrantClient, vector_size: int = 384
 
 
 class RAGDocument(Document):
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
+
+    from typing import TYPE_CHECKING
+
+    if TYPE_CHECKING:
+        from frappe.types import DF
+
+        category: DF.Link | None
+        status: DF.Literal["Pending", "Processing", "Completed", "Failed"]
+        title: DF.Data | None
+        upload_tai_lieu: DF.Attach | None
+    # end: auto-generated types
+
     def validate(self):
+        if not self.title and self.upload_tai_lieu: # Thay 'upload_tai_lieu' bằng tên field thực tế
+            file_url = self.upload_tai_lieu
+            
+            # Cắt lấy tên file và bỏ đuôi mở rộng
+            file_name_with_ext = file_url.split('/')[-1]
+            import os
+            file_name_clean = os.path.splitext(file_name_with_ext)[0]
+            
+            # Làm sạch chuỗi (Bỏ gạch dưới, gạch ngang, viết hoa chữ cái đầu)
+            self.title = file_name_clean.replace("_", " ").replace("-", " ").capitalize()
         if self.upload_tai_lieu:
             current_content_hash = frappe.db.get_value("File", {"file_url": self.upload_tai_lieu}, "content_hash")
 

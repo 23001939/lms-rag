@@ -1,0 +1,231 @@
+2026-08-07 18:31:05,059 ERROR frappe Error executing create_quiz: Minimum two options are required for multiple choice questions.
+Site: lms.localhost
+Form Dict: {'prompt': 'Tạo một bài trắc nghiệm (quiz) về chủ đề: "núi".\n- Số lượng: 5 câu hỏi.\n- Độ khó: Medium.\n', 'course_name': 'kh-a-h-c-l-thuy-t-leo-n-i-c-b-n', 'cmd': 'lms.lms.ai_course.ai_chat_generate_quiz'}
+2026-08-07 18:44:02,077 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'prompt': 'Tạo một bài trắc nghiệm (quiz) về chủ đề: "núi".\n- Số lượng: 5 câu hỏi.\n- Độ khó: Medium.\n', 'course_name': 'kh-a-h-c-l-thuy-t-leo-n-i-c-b-n', 'cmd': 'lms.lms.ai_course.ai_chat_generate_quiz'}
+2026-08-07 18:51:03,680 ERROR frappe Error executing create_quiz: options
+Site: lms.localhost
+Form Dict: {'prompt': 'Tạo một bài trắc nghiệm (quiz) về chủ đề: "núi".\n- Số lượng: 5 câu hỏi.\n- Độ khó: Medium.\n', 'course_name': 'kh-a-h-c-l-thuy-t-leo-n-i-c-b-n', 'cmd': 'lms.lms.ai_course.ai_chat_generate_quiz'}
+2026-08-07 18:59:54,962 ERROR frappe Error executing create_quiz: Minimum two options are required for multiple choice questions.
+Site: lms.localhost
+Form Dict: {'prompt': 'Tạo một bài trắc nghiệm (quiz) về chủ đề: "dụng cụ".\n- Số lượng: 5 câu hỏi.\n- Độ khó: Medium.\n', 'course_name': 'kh-a-h-c-l-thuy-t-leo-n-i-c-b-n', 'cmd': 'lms.lms.ai_course.ai_chat_generate_quiz'}
+2026-08-07 19:04:38,099 ERROR frappe Error executing create_quiz: Minimum two options are required for multiple choice questions.
+Site: lms.localhost
+Form Dict: {'prompt': 'Tạo một bài trắc nghiệm (quiz) về chủ đề: "dụng cụ".\n- Số lượng: 5 câu hỏi.\n- Độ khó: Medium.\n', 'course_name': 'kh-a-h-c-l-thuy-t-leo-n-i-c-b-n', 'cmd': 'lms.lms.ai_course.ai_chat_generate_quiz'}
+2026-08-07 19:10:45,178 ERROR frappe Error executing create_quiz: Minimum two options are required for multiple choice questions.
+Site: lms.localhost
+Form Dict: {'prompt': 'Tạo một bài trắc nghiệm (quiz) về chủ đề: "dụng cụ".\n- Số lượng: 5 câu hỏi.\n- Độ khó: Medium.\n', 'course_name': 'kh-a-h-c-l-thuy-t-leo-n-i-c-b-n', 'cmd': 'lms.lms.ai_course.ai_chat_generate_quiz'}
+2026-08-08 03:07:57,731 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Quiz', 'fields': ['name', 'title', 'passing_percentage', 'total_marks', 'show_answers', 'max_attempts', 'modified'], 'filters': {}, 'order_by': 'modified desc', 'start': 0, 'limit': 20, 'limit_start': 0, 'limit_page_length': 20, 'debug': 0, 'cmd': 'frappe.client.get_list'}
+2026-08-08 03:07:57,731 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Quiz', 'filters': {}, 'cmd': 'frappe.client.get_count'}
+ 'total_marks', 'show_answers', 'max_attempts', 'modified'], 'filters': {}, 'order_by': 'modified desc', 'start': 0, 'limit': 20, 'limit_start': 0, 'limit_page_length': 20, 'debug': 0, 'cmd': 'frappe.client.get_list'}
+2026-08-08 03:07:57,731 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'cmd': 'lms.lms.ai_course.get_courses_list'}
+'frappe.client.get_count'}
+ 'total_marks', 'show_answers', 'max_attempts', 'modified'], 'filters': {}, 'order_by': 'modified desc', 'start': 0, 'limit': 20, 'limit_start': 0, 'limit_page_length': 20, 'debug': 0, 'cmd': 'frappe.client.get_list'}
+2026-08-08 03:07:57,731 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'cmd': 'lms.lms.ai_course.get_courses_list'}
+'frappe.client.get_count'}
+2026-08-08 03:07:57,731 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'cmd': 'lms.lms.ai_course.get_courses_list'}
+2026-08-08 03:11:31,571 ERROR frappe Error executing create_quiz: Minimum two options are required for multiple choice questions.
+Site: lms.localhost
+Form Dict: {'prompt': 'Tạo một bài trắc nghiệm (quiz) về chủ đề: "dụng cụ".\n- Số lượng: 5 câu hỏi.\n- Độ khó: Medium.\n', 'course_name': 'kh-a-h-c-l-thuy-t-leo-n-i-c-b-n', 'cmd': 'lms.lms.ai_course.ai_chat_generate_quiz'}
+2026-08-08 03:11:31,571 ERROR frappe Error executing create_quiz: Minimum two options are required for multiple choice questions.
+Site: lms.localhost
+Form Dict: {'prompt': 'Tạo một bài trắc nghiệm (quiz) về chủ đề: "dụng cụ".\n- Số lượng: 5 câu hỏi.\n- Độ khó: Medium.\n', 'course_name': 'kh-a-h-c-l-thuy-t-leo-n-i-c-b-n', 'cmd': 'lms.lms.ai_course.ai_chat_generate_quiz'}
+2026-08-08 03:11:31,571 ERROR frappe Error executing create_quiz: Minimum two options are required for multiple choice questions.
+Site: lms.localhost
+Form Dict: {'prompt': 'Tạo một bài trắc nghiệm (quiz) về chủ đề: "dụng cụ".\n- Số lượng: 5 câu hỏi.\n- Độ khó: Medium.\n', 'course_name': 'kh-a-h-c-l-thuy-t-leo-n-i-c-b-n', 'cmd': 'lms.lms.ai_course.ai_chat_generate_quiz'}
+2026-08-08 03:16:16,971 ERROR frappe Error while inserting deferred Error Log record: (1406, "Data too long for column 'method' at row 1")
+Site: lms.localhost
+Form Dict: {}
+2026-08-08 03:16:16,979 ERROR frappe Error while inserting deferred Error Log record: (1406, "Data too long for column 'method' at row 1")
+Site: lms.localhost
+Form Dict: {}
+2026-08-08 03:16:16,989 ERROR frappe Error while inserting deferred Error Log record: (1406, "Data too long for column 'method' at row 1")
+Site: lms.localhost
+Form Dict: {}
+2026-08-08 03:55:28,298 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00062', 'cmd': 'frappe.client.delete'}
+2026-08-08 03:55:28,298 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00061', 'cmd': 'frappe.client.delete'}
+2026-08-08 03:55:28,298 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00061', 'cmd': 'frappe.client.delete'}
+2026-08-08 03:55:28,299 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00068', 'cmd': 'frappe.client.delete'}
+2026-08-08 03:56:16,403 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Quiz', 'name': 'b-i-ki-m-tra-ki-n-th-c', 'cmd': 'frappe.client.delete'}
+2026-08-08 03:56:16,403 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Quiz', 'name': 'b-i-ki-m-tra-ki-n-th-c', 'cmd': 'frappe.client.delete'}
+2026-08-08 04:03:47,270 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Quiz', 'name': 'b-i-ki-m-tra-ki-n-th-c', 'cmd': 'frappe.client.delete'}
+2026-08-08 04:03:47,270 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Quiz', 'name': 'b-i-ki-m-tra-ki-n-th-c', 'cmd': 'frappe.client.delete'}
+2026-08-08 04:10:22,366 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Quiz', 'name': 'b-i-ki-m-tra-ki-n-th-c', 'cmd': 'frappe.client.delete'}
+2026-08-08 04:10:22,366 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Quiz', 'name': 'b-i-ki-m-tra-ki-n-th-c', 'cmd': 'frappe.client.delete'}
+2026-08-08 04:12:49,474 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Quiz', 'name': 'b-i-ki-m-tra-ki-n-th-c', 'cmd': 'frappe.client.delete'}
+2026-08-08 04:12:49,474 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Quiz', 'name': 'b-i-ki-m-tra-ki-n-th-c', 'cmd': 'frappe.client.delete'}
+2026-08-08 04:13:56,194 ERROR frappe Error executing create_assignment:  Loại không thể là "Upload". Nó nên là một trong "Tài liệu", "PDF", "URL", "Hình ảnh", "Văn bản"
+Site: lms.localhost
+Form Dict: {'prompt': 'Tạo một bài tập (assignment) về chủ đề: "leo nút".\n- Bao gồm: 2 yêu cầu hoặc câu hỏi nhỏ bên trong bài tập.\n- Mức độ khó: Medium.\n- Hình thức học viên nộp bài dự kiến: Document.\n', 'course_name': 'kh-a-h-c-l-thuy-t-leo-n-i-c-b-n', 'cmd': 'lms.lms.ai_course.ai_chat_generate_assignment'}
+2026-08-08 04:13:56,194 ERROR frappe Error executing create_assignment:  Loại không thể là "Upload". Nó nên là một trong "Tài liệu", "PDF", "URL", "Hình ảnh", "Văn bản"
+Site: lms.localhost
+Form Dict: {'prompt': 'Tạo một bài tập (assignment) về chủ đề: "leo nút".\n- Bao gồm: 2 yêu cầu hoặc câu hỏi nhỏ bên trong bài tập.\n- Mức độ khó: Medium.\n- Hình thức học viên nộp bài dự kiến: Document.\n', 'course_name': 'kh-a-h-c-l-thuy-t-leo-n-i-c-b-n', 'cmd': 'lms.lms.ai_course.ai_chat_generate_assignment'}
+2026-08-08 04:14:13,134 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00070', 'cmd': 'frappe.client.delete'}
+2026-08-08 04:14:13,134 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00070', 'cmd': 'frappe.client.delete'}
+2026-08-08 04:16:07,342 ERROR frappe Error while inserting deferred Error Log record: (1406, "Data too long for column 'method' at row 1")
+Site: lms.localhost
+Form Dict: {}
+2026-08-08 04:16:07,348 ERROR frappe Error while inserting deferred Error Log record: (1406, "Data too long for column 'method' at row 1")
+Site: lms.localhost
+Form Dict: {}
+2026-08-08 04:16:07,357 ERROR frappe Error while inserting deferred Error Log record: (1406, "Data too long for column 'method' at row 1")
+Site: lms.localhost
+Form Dict: {}
+2026-08-08 05:35:03,883 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00019', 'cmd': 'frappe.client.get'}
+2026-08-08 05:35:03,886 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00021', 'cmd': 'frappe.client.get'}
+2026-08-08 05:35:03,883 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00019', 'cmd': 'frappe.client.get'}
+2026-08-08 05:35:03,887 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'fieldname': 'title', 'filters': {'name': 'ASG-00021'}, 'cmd': 'frappe.client.get_value'}
+2026-08-08 05:35:03,887 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'fieldname': 'title', 'filters': {'name': 'ASG-00019'}, 'cmd': 'frappe.client.get_value'}
+2026-08-08 05:35:03,887 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'fieldname': 'title', 'filters': {'name': 'ASG-00019'}, 'cmd': 'frappe.client.get_value'}
+2026-08-08 05:35:03,887 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'fieldname': 'title', 'filters': {'name': 'ASG-00019'}, 'cmd': 'frappe.client.get_value'}
+2026-08-08 05:35:03,887 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'fieldname': 'title', 'filters': {'name': 'ASG-00019'}, 'cmd': 'frappe.client.get_value'}
+2026-08-08 05:35:04,636 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'fieldname': 'title', 'filters': {'name': 'ASG-00021'}, 'cmd': 'frappe.client.get_value'}
+2026-08-08 05:35:04,637 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00021', 'cmd': 'frappe.client.get'}
+021'}, 'cmd': 'frappe.client.get_value'}
+2026-08-08 05:35:04,637 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00021', 'cmd': 'frappe.client.get'}
+021'}, 'cmd': 'frappe.client.get_value'}
+2026-08-08 05:35:04,637 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00021', 'cmd': 'frappe.client.get'}
+021'}, 'cmd': 'frappe.client.get_value'}
+2026-08-08 05:35:04,642 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00019', 'cmd': 'frappe.client.get'}
+2026-08-08 05:35:04,644 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'fieldname': 'title', 'filters': {'name': 'ASG-00019'}, 'cmd': 'frappe.client.get_value'}
+2026-08-08 05:35:04,644 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'fieldname': 'title', 'filters': {'name': 'ASG-002026-08-08 05:35:04,642 ERROR frappe New 2026-08-08 05:35:04,644 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'fieldname': 'title', 'filters': {'name': 'ASG-00019'}, 'cmd': 'frappe.client.get_value'}
+2026-08-08 05:35:04,644 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'fieldname': 'title', 'filters': {'name': 'ASG-00019'}, 'cmd': 'frappe.client.get_value'}
+2026-08-08 05:35:13,528 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00021', 'cmd': 'frappe.client.get'}
+2026-08-08 05:35:13,528 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00021', 'cmd': 'frappe.client.get'}
+2026-08-08 05:35:13,528 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00021', 'cmd': 'frappe.client.get'}
+2026-08-08 05:35:13,528 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00021', 'cmd': 'frappe.client.get'}
+2026-08-08 05:35:16,140 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00021', 'cmd': 'frappe.client.get'}
+2026-08-08 05:35:16,140 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00021', 'cmd': 'frappe.client.get'}
+2026-08-08 05:35:16,140 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00021', 'cmd': 'frappe.client.get'}
+2026-08-08 05:35:16,140 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00021', 'cmd': 'frappe.client.get'}
+2026-08-08 06:17:22,981 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00070', 'cmd': 'frappe.client.delete'}
+2026-08-08 06:17:22,981 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00070', 'cmd': 'frappe.client.delete'}
+2026-08-08 06:17:22,981 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00070', 'cmd': 'frappe.client.delete'}
+2026-08-08 06:17:22,981 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'doctype': 'LMS Assignment', 'name': 'ASG-00070', 'cmd': 'frappe.client.delete'}
+2026-08-08 06:24:06,816 ERROR frappe Error executing create_assignment:  Loại không thể là "Văn bản". Nó nên là một trong "Tài liệu", "PDF", "URL", "Hình ảnh", "Văn bản"
+Site: lms.localhost
+Form Dict: {'prompt': 'Tạo một bài tập (assignment) về chủ đề: "lập trình".\n- Bao gồm: 5 yêu cầu hoặc câu hỏi nhỏ bên trong bài tập.\n- Mức độ khó: Easy.\n- Hình thức học viên nộp bài dự kiến: Text.\n', 'course_name': 'nh-p-m-n-ng-n-ng-go-c-b-n', 'cmd': 'lms.lms.ai_course.ai_chat_generate_assignment'}
+2026-08-08 06:24:06,816 ERROR frappe Error executing create_assignment:  Loại không thể là "Văn bản". Nó nên là một trong "Tài liệu", "PDF", "URL", "Hình ảnh", "Văn bản"
+Site: lms.localhost
+Form Dict: {'prompt': 'Tạo một bài tập (assignment) về chủ đề: "lập trình".\n- Bao gồm: 5 yêu cầu hoặc câu hỏi nhỏ bên trong bài tập.\n- Mức độ khó: Easy.\n- Hình thức học viên nộp bài dự kiến: Text.\n', 'course_name': 'nh-p-m-n-ng-n-ng-go-c-b-n', 'cmd': 'lms.lms.ai_course.ai_chat_generate_assignment'}
+2026-08-08 06:24:06,816 ERROR frappe Error executing create_assignment:  Loại không thể là "Văn bản". Nó nên là một trong "Tài liệu", "PDF", "URL", "Hình ảnh", "Văn bản"
+Site: lms.localhost
+Form Dict: {'prompt': 'Tạo một bài tập (assignment) về chủ đề: "lập trình".\n- Bao gồm: 5 yêu cầu hoặc câu hỏi nhỏ bên trong bài tập.\n- Mức độ khó: Easy.\n- Hình thức học viên nộp bài dự kiến: Text.\n', 'course_name': 'nh-p-m-n-ng-n-ng-go-c-b-n', 'cmd': 'lms.lms.ai_course.ai_chat_generate_assignment'}
+2026-08-08 06:24:06,816 ERROR frappe Error executing create_assignment:  Loại không thể là "Văn bản". Nó nên là một trong "Tài liệu", "PDF", "URL", "Hình ảnh", "Văn bản"
+Site: lms.localhost
+Form Dict: {'prompt': 'Tạo một bài tập (assignment) về chủ đề: "lập trình".\n- Bao gồm: 5 yêu cầu hoặc câu hỏi nhỏ bên trong bài tập.\n- Mức độ khó: Easy.\n- Hình thức học viên nộp bài dự kiến: Text.\n', 'course_name': 'nh-p-m-n-ng-n-ng-go-c-b-n', 'cmd': 'lms.lms.ai_course.ai_chat_generate_assignment'}
+2026-08-08 07:38:28,269 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'course': 'kh-a-h-c-t-o-kh-a-h-c-v-kalman-filter', 'cmd': 'lms.lms.api.delete_course'}
+2026-08-08 07:39:21,161 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'course': 'kh-a-h-c-t-o-course-h-c-v-kalman-filte', 'cmd': 'lms.lms.api.delete_course'}
+2026-08-08 08:18:08,762 ERROR frappe Error executing create_quiz: If you want open ended questions then make sure each question in the quiz is of open ended type.
+Site: lms.localhost
+Form Dict: {'prompt': 'Tạo một bài trắc nghiệm (quiz) về chủ đề: "lập trình".\n- Số lượng: 10 câu hỏi.\n- Độ khó: Hard.\n- Hướng dẫn thêm: 5 trắc nghiệp 5 tự luận', 'course_name': 'nh-p-m-n-ng-n-ng-go-c-b-n', 'cmd': 'lms.lms.ai_course.ai_chat_generate_quiz'}
+2026-08-10 01:55:37,512 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'is_private': '0', 'folder': 'Home/Attachments', 'cmd': 'upload_file'}
+2026-08-10 02:58:44,188 ERROR frappe New Exception collected in error log
+Site: lms.localhost
+Form Dict: {'quiz': 'b-i-ki-m-tra-ki-n-th-c', 'results': '[{"question_name":"QTS-2026-00078","answer":["James Gosling"]},{"question_name":"QTS-2026-00079","answer":["1995"]}]', 'cmd': 'lms.lms.doctype.lms_quiz.lms_quiz.submit_quiz'}
+2026-08-10 03:00:43,224 ERROR frappe Error while inserting deferred Error Log record: (1406, "Data too long for column 'method' at row 1")
+Site: lms.localhost
+Form Dict: {}

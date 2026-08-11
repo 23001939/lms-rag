@@ -4,14 +4,27 @@
 			<Breadcrumbs :items="breadcrumbs" />
 		</template>
 		<template #right-header>
-			<Button v-if="!readOnlyMode" variant="solid" @click="createQuiz">
-				<template #prefix>
-					<span class="lucide-plus size-4" />
-				</template>
-				{{ __('Create') }}
-			</Button>
+			<div v-if="!readOnlyMode" class="flex items-center gap-2">
+				<Button variant="subtle" @click="showAIQuizModal = true">
+					<template #prefix>
+						<span class="lucide-sparkles size-4" />
+					</template>
+					{{ __('Create with AI') }}
+				</Button>
+				<Button variant="solid" @click="createQuiz">
+					<template #prefix>
+						<span class="lucide-plus size-4" />
+					</template>
+					{{ __('Create') }}
+				</Button>
+			</div>
 		</template>
 	</LayoutHeader>
+
+	<AIQuizGeneratorModal
+		v-model="showAIQuizModal"
+		@generated="onAIQuizGenerated"
+	/>
 
 	<div class="flex min-h-0 flex-1 flex-col pt-5">
 		<div
@@ -146,6 +159,7 @@ import { sessionStore } from '@/stores/session'
 import { useTelemetry } from 'frappe-ui/frappe'
 import EmptyStateLayout from '@/components/Layouts/EmptyStateLayout.vue'
 import LayoutHeader from '@/components/Layouts/LayoutHeader.vue'
+import AIQuizGeneratorModal from '@/pages/Quizzes/AIQuizGeneratorModal.vue'
 
 const { brand } = sessionStore()
 const { capture } = useTelemetry()
@@ -155,6 +169,7 @@ const router = useRouter()
 const search = ref('')
 const readOnlyMode = window.read_only_mode
 const quizFilters = ref({})
+const showAIQuizModal = ref(false)
 
 onMounted(() => {
 	if (
@@ -224,6 +239,19 @@ const totalQuizzes = createResource({
 		console.error(err)
 	},
 })
+
+const onAIQuizGenerated = (data) => {
+	quizzes.reload()
+	totalQuizzes.reload()
+	if (data && data.quiz_name) {
+		router.push({
+			name: 'QuizForm',
+			params: {
+				quizID: data.quiz_name,
+			},
+		})
+	}
+}
 
 const createQuiz = () => {
 	quizzes.insert.submit(

@@ -2,7 +2,7 @@
  "actions": [],
  "allow_bulk_edit": 1,
  "allow_rename": 1,
- "autoname": "field:title",
+ "autoname": "RAG-.####",
  "creation": "2026-07-29 10:35:36.982444",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -17,8 +17,7 @@
    "fieldname": "title",
    "fieldtype": "Data",
    "label": "title",
-   "length": 1000,
-   "unique": 1
+   "length": 1000
   },
   {
    "fieldname": "category",
@@ -44,11 +43,11 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-07-29 18:22:30.204308",
+ "modified": "2026-08-10 13:32:36.733538",
  "modified_by": "Administrator",
  "module": "LMS AI",
  "name": "RAG Document",
- "naming_rule": "By fieldname",
+ "naming_rule": "By script",
  "owner": "Administrator",
  "permissions": [
   {

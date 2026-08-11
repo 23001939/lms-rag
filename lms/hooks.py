@@ -129,6 +129,9 @@ doc_events = {
 		"validate": "lms.lms.user.validate_username_duplicates",
 		"before_insert": "lms.lms.user.add_lms_student_role",
 	},
+	"LMS Quiz": {
+        "on_trash": "lms.lms.doctype.lms_quiz.lms_quiz.before_quiz_delete"
+    },
 }
 
 # Scheduled Tasks

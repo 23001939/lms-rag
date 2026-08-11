@@ -4,21 +4,28 @@
 			<Breadcrumbs :items="breadcrumbs" />
 		</template>
 		<template #right-header>
-			<Button
-				v-if="!readOnlyMode"
-				variant="solid"
-				@click="
-					() => {
-						assignmentID = 'new'
-						showAssignmentForm = true
-					}
-				"
-			>
-				<template #prefix>
-					<span class="lucide-plus size-4" />
-				</template>
-				{{ __('Create') }}
-			</Button>
+			<div v-if="!readOnlyMode" class="flex items-center gap-2">
+				<Button variant="subtle" @click="showAIAssignmentModal = true">
+					<template #prefix>
+						<span class="lucide-sparkles size-4" />
+					</template>
+					{{ __('Create with AI') }}
+				</Button>
+				<Button
+					variant="solid"
+					@click="
+						() => {
+							assignmentID = 'new'
+							showAssignmentForm = true
+						}
+					"
+				>
+					<template #prefix>
+						<span class="lucide-plus size-4" />
+					</template>
+					{{ __('Create') }}
+				</Button>
+			</div>
 		</template>
 	</LayoutHeader>
 
@@ -145,6 +152,11 @@
 		v-model:assignments="assignments"
 		:assignmentID="assignmentID"
 	/>
+	<AIAssignmentGeneratorModal
+		v-model="showAIAssignmentModal"
+		:assignments="assignments"
+		@assignment-created="reloadAssignments"
+	/>
 </template>
 <script setup>
 import {
@@ -170,6 +182,7 @@ import { computed, inject, onMounted, ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { sessionStore } from '../stores/session'
 import AssignmentForm from '@/components/Modals/AssignmentForm.vue'
+import AIAssignmentGeneratorModal from '@/pages/Assignments/AIAssignmentGeneratorModal.vue'
 import SkeletonLoader from '@/components/SkeletonLoader.vue'
 import EmptyStateLayout from '@/components/Layouts/EmptyStateLayout.vue'
 import LayoutHeader from '@/components/Layouts/LayoutHeader.vue'
@@ -179,6 +192,7 @@ const dayjs = inject('$dayjs')
 const titleFilter = ref('')
 const typeFilter = ref('')
 const showAssignmentForm = ref(false)
+const showAIAssignmentModal = ref(false)
 const assignmentID = ref('new')
 const { brand } = sessionStore()
 const router = useRouter()

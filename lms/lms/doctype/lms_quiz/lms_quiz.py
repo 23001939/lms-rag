@@ -389,3 +389,12 @@ def check_input_answers(question: str, answer: str):
 		if possibility and fuzz.token_sort_ratio(possibility, answer) > 85:
 			return 1
 	return 0
+
+
+def before_quiz_delete(doc, method):
+    # Lấy danh sách tất cả các bài nộp liên kết với Quiz này
+    submissions = frappe.get_all("LMS Quiz Submission", filters={"quiz": doc.name})
+    
+    # Xóa toàn bộ các bài nộp
+    for sub in submissions:
+        frappe.delete_doc("LMS Quiz Submission", sub.name, ignore_permissions=True)
