@@ -673,8 +673,11 @@ def ai_chat_generate_course(prompt: str, file_urls: str = None, message_history:
         message_history = []
 
     doc_content = _prepare_llm_context(file_urls=file_urls)
-    llm_api_url = frappe.conf.get("llm_api_url") or os.environ.get("OPENAI_API_BASE") or "http://9router:20128/v1"
-    llm_api_key = frappe.conf.get("llm_api_key") or os.environ.get("OPENAI_API_KEY") or "sk-8ecd5f2dc875e32a-x4tt8o-caf79226"
+    llm_api_url = frappe.conf.get("llm_api_url")
+    llm_api_key = frappe.conf.get("llm_api_key")
+    llm_api_model = frappe.conf.get("llm_api_model")
+    llm_api_temperature = frappe.conf.get("llm_api_temperature") or 0.2
+    llm_api_topp = frappe.conf.get("llm_api_mollm_api_toppdel") or 0.2
 
     system_prompt = (
         "You are an expert AI instructional designer for an LMS system. "
@@ -696,12 +699,12 @@ def ai_chat_generate_course(prompt: str, file_urls: str = None, message_history:
         client = openai.OpenAI(base_url=llm_api_url, api_key=llm_api_key)
 
         response = client.chat.completions.create(
-            model="my-combo",
+            model=llm_api_model,
             messages=messages,
             tools=[COURSE_CREATION_TOOL],
             tool_choice="auto",
-            temperature=0.2,        
-            top_p=0.8
+            temperature=llm_api_temperature,        
+            top_p=llm_api_topp
         )
         response_message = response.choices[0].message
         args = None
@@ -741,9 +744,12 @@ def ai_chat_generate_quiz(prompt: str, file_urls: str = None, course_name: str =
         message_history = []
 
     doc_content = _prepare_llm_context(file_urls=file_urls, course_name=course_name)
-    llm_api_url = frappe.conf.get("llm_api_url") or os.environ.get("OPENAI_API_BASE") or "http://9router:20128/v1"
-    llm_api_key = frappe.conf.get("llm_api_key") or os.environ.get("OPENAI_API_KEY") or "sk-8ecd5f2dc875e32a-x4tt8o-caf79226"
-
+    llm_api_url = frappe.conf.get("llm_api_url")
+    llm_api_key = frappe.conf.get("llm_api_key")
+    llm_api_model = frappe.conf.get("llm_api_model")
+    llm_api_temperature = frappe.conf.get("llm_api_temperature") or 0.2
+    llm_api_topp = frappe.conf.get("llm_api_mollm_api_toppdel") or 0.2
+    
     # ĐÃ THÊM RULE SỐ 3 ĐỂ ÉP AI PHẢI CÓ ĐÁP ÁN ĐÚNG
     system_prompt = (
         "You are an expert AI quiz generator for Frappe Learning (LMS). "
@@ -767,12 +773,12 @@ def ai_chat_generate_quiz(prompt: str, file_urls: str = None, course_name: str =
         client = openai.OpenAI(base_url=llm_api_url, api_key=llm_api_key)
         
         response = client.chat.completions.create(
-            model="my-combo",
+            model=llm_api_model,
             messages=messages,
             tools=[QUIZ_CREATION_TOOL],
             tool_choice="auto",
-            temperature=0.2,        
-            top_p=0.8
+            temperature=llm_api_temperature,        
+            top_p=llm_api_topp
         )
         response_message = response.choices[0].message
         args = None
@@ -826,8 +832,11 @@ def ai_chat_generate_assignment(prompt: str, file_urls: str = None, course_name:
         message_history = []
         
     doc_content = _prepare_llm_context(file_urls=file_urls, course_name=course_name)
-    llm_api_url = frappe.conf.get("llm_api_url") or os.environ.get("OPENAI_API_BASE") or "http://9router:20128/v1"
-    llm_api_key = frappe.conf.get("llm_api_key") or os.environ.get("OPENAI_API_KEY") or "sk-8ecd5f2dc875e32a-x4tt8o-caf79226"
+    llm_api_url = frappe.conf.get("llm_api_url")
+    llm_api_key = frappe.conf.get("llm_api_key")
+    llm_api_model = frappe.conf.get("llm_api_model")
+    llm_api_temperature = frappe.conf.get("llm_api_temperature") or 0.2
+    llm_api_topp = frappe.conf.get("llm_api_mollm_api_toppdel") or 0.2
 
     # Cập nhật System Prompt: Ép AI trả về Array và tuân thủ định dạng Submission Type
     system_prompt = (
@@ -852,12 +861,12 @@ def ai_chat_generate_assignment(prompt: str, file_urls: str = None, course_name:
         client = openai.OpenAI(base_url=llm_api_url, api_key=llm_api_key)
         
         response = client.chat.completions.create(
-            model="my-combo",
+            model=llm_api_model,
             messages=messages,
             tools=[ASSIGNMENT_CREATION_TOOL],
             tool_choice="auto",
-            temperature=0.2,        
-            top_p=0.8
+            temperature=llm_api_temperature,        
+            top_p=llm_api_topp
         )
         response_message = response.choices[0].message
         args = None

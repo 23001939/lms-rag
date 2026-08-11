@@ -13,5 +13,8 @@
   "lms_ai"
  ],
  "llm_api_key": "sk-8ecd5f2dc875e32a-x4tt8o-caf79226",
- "llm_api_url": "http://9router:20128/v1"
+ "llm_api_url": "http://9router:20128/v1",
+ "llm_api_model": "my-combo",
+ "llm_api_temperature": 0.2,  
+ "llm_api_topp": 0.2
 }

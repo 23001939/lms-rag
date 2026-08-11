@@ -58,7 +58,10 @@ def ask_ai(message: str, categories: list | str = None):
         references = []
         api_url = frappe.conf.get("llm_api_url")
         api_key = frappe.conf.get("llm_api_key")
-        
+        llm_api_model = frappe.conf.get("llm_api_model")
+        llm_api_temperature = frappe.conf.get("llm_api_temperature") or 0.2
+        llm_api_topp = frappe.conf.get("llm_api_mollm_api_toppdel") or 0.2
+
         if not api_url or not api_key:
             fralog = "Chưa cấu hình 'llm_api_url' hoặc 'llm_api_key' trong site_config.json"
             frappe.log_error(fralog, "LLM Configuration Error")
@@ -174,9 +177,10 @@ def ask_ai(message: str, categories: list | str = None):
         messages.append({"role": "user", "content": message})
         
         response = llm_client.chat.completions.create(
-            model="my-combo",
+            model=llm_api_model,
             messages=messages,
-            temperature=0.1
+            temperature=llm_api_temperature,        
+            top_p=llm_api_topp
         )
 
         reply_text = response.choices[0].message.content
