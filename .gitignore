@@ -20,3 +20,4 @@ docker/frappe-bench/sites/assets/
 docker/frappe-bench/logs/worker.error.log
 docker/frappe-bench/sites/lms.localhost/learning.db
 docker/frappe-bench/logs/worker.error.log
+docker/frappe-bench/chromium/
