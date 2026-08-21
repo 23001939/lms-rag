@@ -227,5 +227,38 @@
 			document.getElementById('seo-content').style.display = 'none';
 		</script>
 		<script type="module" src="/src/main.js"></script>
+		<script src="/assets/lms_ai/js/chat_popup.js"></script>
+			<!-- Cấu hình và Tải MathJax -->
+		<script>
+		window.MathJax = {
+			tex: {
+			inlineMath: [['$', '$'], ['\\(', '\\)']],
+			displayMath: [['$$', '$$'], ['\\[', '\\]']],
+			processEscapes: true
+			},
+			options: {
+			skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+			}
+		};
+		</script>
+		<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+		<!-- MutationObserver ép Vue.js render công thức -->
+		<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			let mathJaxTimeout = null;
+			const observer = new MutationObserver(function () {
+				if (mathJaxTimeout) clearTimeout(mathJaxTimeout);
+				mathJaxTimeout = setTimeout(function () {
+					if (window.MathJax && window.MathJax.typesetPromise) {
+						window.MathJax.typesetClear();
+						window.MathJax.typesetPromise().catch(err => console.log(err));
+					}
+				}, 300);
+			});
+			observer.observe(document.body, { childList: true, subtree: true });
+		});
+		</script>
+	</head>
 	</body>
 </html>

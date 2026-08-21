@@ -1,10 +1,177 @@
 @import 'frappe-ui/style.css';
 @import './styles/blockEditor.css';
 
-/* This build makes --surface-sidebar transparent in dark mode; point it at
-   gray-1 so the sidebar keeps a visible surface. */
+:root,
+[data-theme='light'] {
+	/* Cỡ chữ base 14px */
+	--text-p-base: 14px;
+	--text-base: 14px;
+	--text-sm: 13px;
+	--text-p-sm: 13px;
+	--text-xs: 12px;
+
+	/* Core Brand Palette Constants */
+	--core-darkgreen: #074942;
+	--core-darkgreen-hover: #053732;
+	--core-darkgreen-darker: #042D29;
+	--core-gold: #F2B814;
+	--core-gold-hover: #D9A30E;
+	--core-gold-light: #FEF9E7;
+
+	/* Frappe UI Core Color Variable Overrides */
+	--brand-500: #074942;
+	--brand-600: #053732;
+	--brand-700: #042D29;
+	--brand-100: #E6F0EF;
+	--primary: #074942;
+	--primary-color: #074942;
+
+	/* Overriding Frappe UI solid button default color */
+	--gray-900: #074942;
+	--gray-800: #053732;
+
+	/* Text / Ink Colors - Light Mode: Headings Dark Green #074942 */
+	--ink-gray-9: #074942; /* Headings (DASHBOARD, etc.) */
+	--ink-gray-8: #1f2937; /* Body Text (thân bài card giữ màu xám đen dễ đọc) */
+	--ink-gray-7: #4b5563; /* Subtext */
+	--ink-gray-6: #6b7280;
+	--ink-gray-5: #9ca3af;
+
+	/* Sidebar Colors - Light Mode */
+	--surface-sidebar: #074942;
+	--surface-elevation-3: #F2B814; /* Active item background = Gold #F2B814 */
+	--surface-gray-2: rgba(255, 255, 255, 0.12); /* Hover item background */
+	--surface-green-3: #F2B814; /* Progress bar & accent fill = Gold #F2B814 */
+}
+
 [data-theme='dark'] {
-	--surface-sidebar: var(--surface-gray-1);
+	/* Text / Ink Colors - Dark Mode: Chữ xanh nhạt hơi trắng cực kỳ nổi bật trên nền tối */
+	--ink-gray-9: #E2F1EF; /* Heading text in dark mode */
+	--ink-gray-8: #C2E2DE; /* Body text in dark mode */
+	--ink-gray-7: #A3D4CE; /* Subtext in dark mode */
+	--ink-gray-6: #84C5BD;
+	--ink-gray-5: #65B6AC;
+
+	--surface-sidebar: #053732;
+	--surface-elevation-3: #F2B814;
+	--surface-gray-2: rgba(255, 255, 255, 0.15);
+	--brand-500: #095D54;
+	--brand-600: #074942;
+	--gray-900: #095D54;
+	--gray-800: #074942;
+	--surface-green-3: #F2B814;
+}
+
+/* Base font size enforcement */
+html, body {
+	font-size: 14px !important;
+}
+
+/* Headings Styling - Light Mode: Dark Green #074942; Dark Mode: Light Whitish Green #E2F1EF */
+[data-theme='light'] h1,
+[data-theme='light'] h2,
+[data-theme='light'] h3,
+[data-theme='light'] h4,
+[data-theme='light'] h5,
+[data-theme='light'] h6,
+[data-theme='light'] .text-ink-gray-9 {
+	color: #074942;
+}
+
+[data-theme='dark'] h1,
+[data-theme='dark'] h2,
+[data-theme='dark'] h3,
+[data-theme='dark'] h4,
+[data-theme='dark'] h5,
+[data-theme='dark'] h6,
+[data-theme='dark'] .text-ink-gray-9 {
+	color: #E2F1EF !important;
+}
+
+/* Solid Buttons & Primary Badges: Dark Green #074942 background, white text */
+button[data-variant='solid']:not([data-theme]),
+.btn-primary,
+button.bg-gray-900,
+.badge-primary {
+	background-color: #074942 !important;
+	color: #ffffff !important;
+	border-color: #074942 !important;
+}
+
+button[data-variant='solid']:not([data-theme]):hover,
+.btn-primary:hover,
+button.bg-gray-900:hover {
+	background-color: #053732 !important;
+	border-color: #053732 !important;
+	box-shadow: 0 0 0 2px rgba(242, 184, 20, 0.5) !important; /* Gold hover focus glow */
+}
+
+/* ===== SIDEBAR STYLING ===== */
+/* Ensure entire sidebar container has dark green background #074942 */
+.bg-surface-sidebar {
+	background-color: #074942 !important;
+	border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Sidebar Section Headers & Item Labels (Inactive Links) */
+.bg-surface-sidebar nav button:not(.bg-surface-elevation-3) span,
+.bg-surface-sidebar .text-base-medium {
+	color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Sidebar Inactive Link Buttons: White / Light Gray text and icons */
+.bg-surface-sidebar button:not(.bg-surface-elevation-3) {
+	color: #ffffff !important;
+}
+
+.bg-surface-sidebar button:not(.bg-surface-elevation-3):hover {
+	background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.bg-surface-sidebar button:not(.bg-surface-elevation-3) svg,
+.bg-surface-sidebar button:not(.bg-surface-elevation-3) span {
+	color: #f3f4f6 !important;
+}
+
+/* Ensure inner cards/banners inside sidebar (like GettingStarted, Profile completion card) keep proper text colors */
+.bg-surface-sidebar .bg-surface-base,
+.bg-surface-sidebar .bg-surface-elevation-2 {
+	color: var(--ink-gray-8) !important;
+}
+.bg-surface-sidebar .bg-surface-base span,
+.bg-surface-sidebar .bg-surface-base div,
+.bg-surface-sidebar .bg-surface-elevation-2 span,
+.bg-surface-sidebar .bg-surface-elevation-2 div {
+	color: inherit;
+}
+
+/* SIDEBAR ACTIVE ITEM: Full Vàng/Vàng cam đậm #F2B814 background, Dark Green #074942 text & icons */
+button.bg-surface-elevation-3,
+.bg-surface-sidebar button.bg-surface-elevation-3 {
+	background-color: #F2B814 !important;
+	color: #074942 !important;
+	font-weight: 700 !important;
+	border-radius: 6px !important;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12) !important;
+}
+
+button.bg-surface-elevation-3 *,
+button.bg-surface-elevation-3 svg,
+button.bg-surface-elevation-3 span {
+	color: #074942 !important;
+}
+
+/* ===== PROGRESS BAR & ACCENT ACCENTS ===== */
+/* Progress bar fill & card underline accent -> Vàng #F2B814 */
+.bg-surface-green-3,
+.progress-bar-fill {
+	background-color: #F2B814 !important;
+}
+
+/* Accent underlines on course cards / lesson cards */
+.accent-border-gold,
+.card-accent-border {
+	border-bottom: 3px solid #F2B814 !important;
 }
 
 /* frappe-ui beta.7 FormLabel differs from InputLabel; match standalone labels

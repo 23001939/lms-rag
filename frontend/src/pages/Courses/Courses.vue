@@ -5,11 +5,11 @@
 		</template>
 		<template #right-header>
 			<div v-if="canCreateCourse()" class="flex items-center gap-2">
-				<Button variant="subtle" @click="showAICourseModal = true">
+				<Button variant="subtle" class="hover:!bg-[#005754] border-none" @click="showAICourseModal = true">
 					<template #prefix>
-						<span class="lucide-sparkles size-4" />
+						<span class="lucide-sparkles size-4 text-yellow-600" />
 					</template>
-					{{ __('Tạo bằng AI') }}
+					<span style="color: #d69e2e;">{{ __('Tạo bằng AI') }}</span>
 				</Button>
 				<Dropdown
 					placement="right"

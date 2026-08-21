@@ -42,10 +42,10 @@ else if (!window.LMS_CHAT_INITIALIZED) {
             const style = document.createElement('style');
             style.id = 'lms-chat-styles';
             style.innerHTML = `
-                /* NÚT CHAT NỔI */
-                #lms-chat-btn { position: fixed !important; bottom: 30px !important; right: 30px !important; height: 55px !important; padding: 0 20px !important; background: linear-gradient(135deg, #2563eb, #1d4ed8) !important; color: white !important; border-radius: 30px !important; display: flex !important; align-items: center !important; justify-content: center !important; gap: 10px !important; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important; font-size: 16px !important; font-weight: 600 !important; cursor: pointer !important; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4) !important; z-index: 2147483647 !important; transition: all 0.3s ease !important; }
+                /* NÚT CHAT NỔI (Đã đổi xanh/vàng) */
+                #lms-chat-btn { position: fixed !important; bottom: 30px !important; right: 30px !important; height: 55px !important; padding: 0 20px !important; background: #074942 !important; color: #F2B814 !important; border-radius: 30px !important; display: flex !important; align-items: center !important; justify-content: center !important; gap: 10px !important; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important; font-size: 16px !important; font-weight: 600 !important; cursor: pointer !important; box-shadow: 0 4px 15px rgba(7, 73, 66, 0.4) !important; z-index: 2147483647 !important; transition: all 0.3s ease !important; }
                 #lms-chat-btn i { font-size: 20px !important; }
-                #lms-chat-btn:hover { transform: translateY(-3px) !important; box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6) !important; }
+                #lms-chat-btn:hover { transform: translateY(-3px) !important; box-shadow: 0 6px 20px rgba(7, 73, 66, 0.6) !important; }
                 
                 /* CỬA SỔ CHAT */
                 #lms-chat-window { position: fixed !important; bottom: 100px !important; right: 30px !important; width: 380px !important; height: 580px !important; min-width: 300px !important; min-height: 400px !important; max-width: 90vw !important; max-height: 90vh !important; background: #ffffff !important; border-radius: 16px !important; box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important; display: none; flex-direction: column !important; z-index: 2147483647 !important; border: 1px solid #e2e8f0 !important; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important; overflow: hidden !important; }
@@ -53,24 +53,25 @@ else if (!window.LMS_CHAT_INITIALIZED) {
                 /* ĐIỂM KÉO RESIZE GÓC TRÊN-TRÁI */
                 .resize-handle { position: absolute; top: 0; left: 0; width: 25px; height: 25px; cursor: nwse-resize; z-index: 100; background: transparent; }
                 
-                .chat-header { background: linear-gradient(135deg, #2563eb, #1d4ed8) !important; color: white !important; padding: 15px 20px !important; display: flex !important; justify-content: space-between !important; align-items: center !important; }
+                /* HEADER (Đã đổi xanh/vàng) */
+                .chat-header { background: #074942 !important; color: #F2B814 !important; padding: 15px 20px !important; display: flex !important; justify-content: space-between !important; align-items: center !important; }
                 .chat-header-info { display: flex; flex-direction: column; }
-                .chat-header-info h3 { font-size: 16px !important; font-weight: 600 !important; margin: 0 !important; color: white !important;}
-                .chat-header-info p { font-size: 12px !important; opacity: 0.9 !important; margin: 0 !important; margin-top: 2px !important; }
-                .close-btn { cursor: pointer !important; font-size: 18px !important; transition: opacity 0.2s; }
+                .chat-header-info h3 { font-size: 16px !important; font-weight: 600 !important; margin: 0 !important; color: #F2B814 !important;}
+                .chat-header-info p { font-size: 12px !important; opacity: 0.9 !important; margin: 0 !important; margin-top: 2px !important; color: #F2B814 !important;}
+                .close-btn { cursor: pointer !important; font-size: 18px !important; transition: opacity 0.2s; color: #F2B814 !important; }
                 .close-btn:hover { opacity: 0.7; }
                 
-                /* GIAO DIỆN CHỌN CHỦ ĐỀ */
-                .category-toggle-btn { padding: 12px 15px !important; background: #f8fafc !important; border-bottom: 1px solid #e2e8f0 !important; display: flex !important; justify-content: space-between !important; align-items: center !important; cursor: pointer !important; font-size: 13px !important; font-weight: 600 !important; color: #334155 !important; transition: background 0.2s; overflow: hidden; }
-                .category-toggle-btn:hover { background: #f1f5f9 !important; }
-                .category-toggle-btn i { color: #64748b !important; flex-shrink: 0; }
-                .chat-category-content { display: none !important; padding: 10px 15px !important; background: #ffffff !important; border-bottom: 1px solid #e2e8f0 !important; max-height: 140px !important; overflow-y: auto !important; box-shadow: inset 0 -5px 10px -10px rgba(0,0,0,0.1); }
+                /* GIAO DIỆN CHỌN CHỦ ĐỀ (Đã đổi xanh/vàng) */
+                .category-toggle-btn { padding: 12px 15px !important; background: #074942 !important; border-top: 1px solid #063d37 !important; border-bottom: 1px solid #063d37 !important; display: flex !important; justify-content: space-between !important; align-items: center !important; cursor: pointer !important; font-size: 13px !important; font-weight: 600 !important; color: #F2B814 !important; transition: background 0.2s; overflow: hidden; }
+                .category-toggle-btn:hover { background: #0a5c53 !important; }
+                .category-toggle-btn i { color: #F2B814 !important; flex-shrink: 0; }
+                .chat-category-content { display: none !important; padding: 10px 15px !important; background: #074942 !important; border-bottom: 1px solid #063d37 !important; max-height: 140px !important; overflow-y: auto !important; box-shadow: inset 0 -5px 10px -10px rgba(0,0,0,0.3); }
                 .chat-category-content.show { display: flex !important; }
                 .category-list { flex-direction: column !important; gap: 8px !important; }
-                .category-item { display: flex !important; align-items: center !important; gap: 8px !important; font-size: 13px !important; color: #334155 !important; cursor: pointer !important; padding: 2px 0; }
-                .category-item input { cursor: pointer !important; width: 16px; height: 16px; accent-color: #2563eb !important; margin: 0;}
+                .category-item { display: flex !important; align-items: center !important; gap: 8px !important; font-size: 13px !important; color: #ffffff !important; cursor: pointer !important; padding: 2px 0; }
+                .category-item input { cursor: pointer !important; width: 16px; height: 16px; accent-color: #F2B814 !important; margin: 0;}
                 
-                /* VÙNG TIN NHẮN */
+                /* VÙNG TIN NHẮN (Giữ nguyên) */
                 .chat-messages { flex: 1 !important; padding: 15px !important; overflow-y: auto !important; background: #f8fafc !important; display: flex !important; flex-direction: column !important; gap: 12px !important; scroll-behavior: smooth; }
                 .msg { max-width: 82% !important; padding: 12px 16px !important; border-radius: 16px !important; font-size: 14px !important; line-height: 1.5 !important; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
                 .msg-bot { background: white !important; color: #1e293b !important; align-self: flex-start !important; border: 1px solid #e2e8f0 !important; border-bottom-left-radius: 4px !important; }
@@ -91,9 +92,10 @@ else if (!window.LMS_CHAT_INITIALIZED) {
                 /* SCROLLBAR */
                 .chat-messages::-webkit-scrollbar, .chat-category-content::-webkit-scrollbar { width: 6px; }
                 .chat-messages::-webkit-scrollbar-track, .chat-category-content::-webkit-scrollbar-track { background: transparent; }
-                .chat-messages::-webkit-scrollbar-thumb, .chat-category-content::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
+                .chat-messages::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
+                .chat-category-content::-webkit-scrollbar-thumb { background-color: #0a5c53; border-radius: 10px; } /* Đổi màu scrollbar cho category */
                 
-                /* KHU VỰC NHẬP TEXT */
+                /* KHU VỰC NHẬP TEXT (Giữ nguyên) */
                 .chat-input-area { padding: 15px !important; background: white !important; border-top: 1px solid #e2e8f0 !important; display: flex !important; gap: 10px !important; align-items: center; }
                 .chat-input-area input { flex: 1 !important; padding: 12px 16px !important; border: 1px solid #cbd5e1 !important; border-radius: 24px !important; outline: none !important; color: #0f172a !important; font-size: 14px; transition: border-color 0.2s; background: #f8fafc; }
                 .chat-input-area input:focus { border-color: #2563eb !important; background: white; }
@@ -137,14 +139,14 @@ else if (!window.LMS_CHAT_INITIALIZED) {
                 
                 <div class="category-toggle-btn" onclick="toggleCategoryContent()">
                     <span style="display: flex; align-items: center; overflow: hidden; white-space: nowrap; flex: 1; margin-right: 10px;">
-                        <i class="fa-regular fa-folder-open" style="margin-right: 6px; flex-shrink: 0;"></i> 
-                        <span id="category-toggle-text" style="overflow: hidden; text-overflow: ellipsis; color: #2563eb;">Chat tự do (Mặc định)</span>
+                        <i class="fa-regular fa-folder-open" style="margin-right: 6px; flex-shrink: 0; color: #F2B814;"></i> 
+                        <span id="category-toggle-text" style="overflow: hidden; text-overflow: ellipsis; color: #F2B814;">Chat tự do (Mặc định)</span>
                     </span>
-                    <i id="category-toggle-icon" class="fa-solid fa-chevron-down" style="flex-shrink: 0;"></i>
+                    <i id="category-toggle-icon" class="fa-solid fa-chevron-down" style="flex-shrink: 0; color: #F2B814;"></i>
                 </div>
 
                 <div id="category-checkbox-container" class="chat-category-content category-list">
-                    <span style="font-size: 12px; color: #94a3b8;">Đang tải chủ đề...</span>
+                    <span style="font-size: 12px; color: #F2B814;">Đang tải chủ đề...</span>
                 </div>
                 <div class="chat-messages" id="chat-messages"></div>
                 <div class="typing" id="typing-indicator">AI đang suy nghĩ...</div>
@@ -237,19 +239,19 @@ else if (!window.LMS_CHAT_INITIALIZED) {
         const allCategoriesCheckbox = container.querySelector('input[name="chat_category"][value="ALL_CATEGORIES"]');
         const checkedOtherBoxes = container.querySelectorAll('input[name="chat_category"]:not([value=""]):not([value="ALL_CATEGORIES"]):checked');
 
+        // Bất kỳ trường hợp nào cũng hiển thị màu vàng cho text trên nền xanh
+        textElement.style.color = "#F2B814";
+
         if (allCategoriesCheckbox && allCategoriesCheckbox.checked) {
             textElement.innerText = "Tất cả chủ đề";
-            textElement.style.color = "#2563eb";
         } 
         else if (checkedOtherBoxes.length > 0) {
             const selectedNames = Array.from(checkedOtherBoxes).map(cb => cb.value);
             textElement.innerText = selectedNames.join(', ');
-            textElement.style.color = "#0f172a";
         } 
         else {
             if (freeChatCheckbox) freeChatCheckbox.checked = true;
             textElement.innerText = "Chat tự do (Mặc định)";
-            textElement.style.color = "#64748b";
         }
     }
 
@@ -308,7 +310,7 @@ else if (!window.LMS_CHAT_INITIALIZED) {
             defaultLabel.className = 'category-item';
             defaultLabel.innerHTML = `
                 <input type="checkbox" name="chat_category" value="" checked>
-                <span style="font-weight: 500; color: #0f172a;">Chat tự do (Không dùng tài liệu)</span>
+                <span style="font-weight: 500; color: #F2B814;">Chat tự do (Không dùng tài liệu)</span>
             `;
             container.appendChild(defaultLabel);
 
@@ -316,7 +318,7 @@ else if (!window.LMS_CHAT_INITIALIZED) {
             allLabel.className = 'category-item';
             allLabel.innerHTML = `
                 <input type="checkbox" name="chat_category" value="ALL_CATEGORIES">
-                <span style="font-weight: 600; color: #2563eb;">Tìm trong TẤT CẢ chủ đề</span>
+                <span style="font-weight: 600; color: #F2B814;">Tìm trong TẤT CẢ chủ đề</span>
             `;
             container.appendChild(allLabel);
 
@@ -327,7 +329,7 @@ else if (!window.LMS_CHAT_INITIALIZED) {
                         label.className = 'category-item';
                         label.innerHTML = `
                             <input type="checkbox" name="chat_category" value="${cat}">
-                            <span>${cat}</span>
+                            <span style="color: #ffffff;">${cat}</span>
                         `;
                         container.appendChild(label);
                     }
@@ -340,7 +342,7 @@ else if (!window.LMS_CHAT_INITIALIZED) {
 
         } catch (error) {
             console.error("Lỗi khi load category:", error);
-            container.innerHTML = '<span style="font-size: 12px; color: red;">Lỗi tải chủ đề</span>';
+            container.innerHTML = '<span style="font-size: 12px; color: #ef4444;">Lỗi tải chủ đề</span>';
         }
     };
 

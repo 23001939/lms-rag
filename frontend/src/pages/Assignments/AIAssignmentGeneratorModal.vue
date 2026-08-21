@@ -1,15 +1,17 @@
 <template>
     <Dialog v-model="show" :options="{ title: __('Tạo bài tập bằng AI') }">
         <template #body>
-            <!-- Bọc toàn bộ nội dung Dialog vào một div -->
-            <div class="px-4 pb-4 sm:px-6 sm:pb-6">
+            <div class="px-5 pb-5 sm:px-6 sm:pb-6">
                 
-                <!-- 1. PHẦN FORM NHẬP LIỆU (CÓ THANH CUỘN) -->
-                <div class="flex flex-col gap-4 max-h-[55vh] overflow-y-auto p-1">
+                <!-- 1. PHẦN FORM NHẬP LIỆU -->
+                <div class="flex flex-col gap-4 max-h-[55vh] overflow-y-auto p-1 custom-scrollbar">
+                    
                     <!-- Dropdown chọn Khóa học -->
-                    <div>
-                        <label class="block text-xs font-medium text-ink-gray-6 mb-1">{{ __('Chọn Khóa học tham chiếu (Tùy chọn)') }}</label>
-                        <select v-model="selectedCourse" class="w-full text-sm rounded-md border border-gray-300 p-2 bg-surface-base text-ink-gray-9 focus:outline-none focus:ring-1 focus:ring-black">
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-[12px] font-bold text-[#074942] uppercase tracking-wide">
+                            {{ __('Chọn Khóa học (Tùy chọn)') }}
+                        </label>
+                        <select v-model="selectedCourse" class="w-full text-sm rounded-xl border border-[#E0F2F1] p-2.5 bg-[#F4F8F8] text-[#183D3C] focus:outline-none focus:ring-1 focus:ring-[#005754] focus:border-[#005754] transition-colors">
                             <option :value="null">-- {{ __('Không chọn (Tạo tự do)') }} --</option>
                             <option v-for="c in coursesList" :key="c.name" :value="c.name">
                                 {{ c.title }}
@@ -17,33 +19,74 @@
                         </select>
                     </div>
 
-                    <FormControl v-model="topic" type="text" :label="__('Chủ đề / Yêu cầu')" required />
+                    <FormControl 
+                        v-model="topic" 
+                        type="text" 
+                        :label="__('Chủ đề / Yêu cầu')" 
+                        required 
+                        class="[&>label]:!text-[#074942] [&>label]:!font-bold [&>label]:!uppercase [&>label]:!text-[12px]"
+                    />
                     
                     <div class="grid grid-cols-2 gap-4">
-                        <FormControl v-model="numberOfQuestions" type="number" :label="__('Số lượng (Yêu cầu con)')" :min="1" :max="20" />
-                        <FormControl v-model="difficulty" type="select" :label="__('Độ khó')" :options="[{ label: 'Dễ', value: 'Easy' }, { label: 'Trung bình', value: 'Medium' }, { label: 'Khó', value: 'Hard' }]" />
+                        <FormControl 
+                            v-model="numberOfQuestions" 
+                            type="number" 
+                            :label="__('Số lượng (Yêu cầu con)')" 
+                            :min="1" 
+                            :max="20" 
+                            class="[&>label]:!text-[#074942] [&>label]:!font-bold [&>label]:!uppercase [&>label]:!text-[12px]"
+                        />
+                        <FormControl 
+                            v-model="difficulty" 
+                            type="select" 
+                            :label="__('Độ khó')" 
+                            :options="[
+                                { label: 'Dễ', value: 'Easy' }, 
+                                { label: 'Trung bình', value: 'Medium' }, 
+                                { label: 'Khó', value: 'Hard' }
+                            ]" 
+                            class="[&>label]:!text-[#074942] [&>label]:!font-bold [&>label]:!uppercase [&>label]:!text-[12px]"
+                        />
                     </div>
 
-                    <FormControl v-model="assignmentType" type="select" :label="__('Hình thức nộp bài')" :options="[{ label: 'Text (Nhập văn bản)', value: 'Text' }, { label: 'Document (Tài liệu)', value: 'Document' }, { label: 'PDF', value: 'PDF' }, { label: 'Image (Hình ảnh)', value: 'Image' }, { label: 'URL (Đường dẫn)', value: 'URL' }]" />
+                    <FormControl 
+                        v-model="assignmentType" 
+                        type="select" 
+                        :label="__('Hình thức nộp bài')" 
+                        :options="[
+                            { label: 'Text (Nhập văn bản)', value: 'Text' }, 
+                            { label: 'Document (Tài liệu)', value: 'Document' }, 
+                            { label: 'PDF', value: 'PDF' }, 
+                            { label: 'Image (Hình ảnh)', value: 'Image' }, 
+                            { label: 'URL (Đường dẫn)', value: 'URL' }
+                        ]" 
+                        class="[&>label]:!text-[#074942] [&>label]:!font-bold [&>label]:!uppercase [&>label]:!text-[12px]"
+                    />
 
-                    <FormControl v-model="additionalInstructions" type="textarea" :label="__('Hướng dẫn bổ sung (Tùy chọn)')" />
+                    <FormControl 
+                        v-model="additionalInstructions" 
+                        type="textarea" 
+                        :label="__('Hướng dẫn bổ sung (Tùy chọn)')" 
+                        class="[&>label]:!text-[#074942] [&>label]:!font-bold [&>label]:!uppercase [&>label]:!text-[12px]"
+                    />
                 </div>
 
-                <!-- 2. PHẦN NÚT BẤM (CỐ ĐỊNH BÊN DƯỚI) -->
-                <div class="flex justify-end gap-2 pt-4 border-t mt-4">
-                    <Button variant="subtle" @click="show = false">
+                <!-- 2. PHẦN NÚT BẤM -->
+                <div class="flex justify-end gap-3 pt-4 border-t border-gray-100 mt-5">
+                    <Button variant="ghost" class="!text-gray-500 hover:!text-gray-800 font-medium" @click="show = false">
                         {{ __('Hủy') }}
                     </Button>
                     <Button
                         variant="solid"
                         :loading="loading"
                         :disabled="!topic"
+                        class="!bg-[#005754] hover:!bg-[#0a4542] !text-[#F2B814] border-none shadow-md px-5"
                         @click="generateAssignment"
                     >
                         <template #prefix>
                             <span class="lucide-sparkles size-4" />
                         </template>
-                        {{ __('Tạo Bài tập') }}
+                        <span class="font-semibold">{{ __('Tạo Bài tập') }}</span>
                     </Button>
                 </div>
 
@@ -129,3 +172,9 @@ const generateAssignment = async () => {
     }
 }
 </script>
+
+<style scoped>
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
+</style>

@@ -1,15 +1,17 @@
 <template>
     <Dialog v-model="show" :options="{ title: __('Tạo bài trắc nghiệm bằng AI') }">
         <template #body>
-            <!-- Bọc TOÀN BỘ nội dung Dialog vào một khối div chung -->
-            <div class="px-4 pb-4 sm:px-6 sm:pb-6">
+            <div class="px-5 pb-5 sm:px-6 sm:pb-6">
                 
-                <!-- PHẦN 1: FORM NHẬP LIỆU (CÓ THANH CUỘN ĐỘC LẬP) -->
-                <div class="flex flex-col gap-4 max-h-[55vh] overflow-y-auto p-1">
+                <!-- PHẦN 1: FORM NHẬP LIỆU -->
+                <div class="flex flex-col gap-4 max-h-[55vh] overflow-y-auto p-1 custom-scrollbar">
+                    
                     <!-- Chọn Khóa học -->
-                    <div>
-                        <label class="block text-xs font-medium text-ink-gray-6 mb-1">{{ __('Chọn Khóa học tham chiếu (Tùy chọn)') }}</label>
-                        <select v-model="selectedCourse" class="w-full text-sm rounded-md border border-gray-300 p-2 bg-surface-base text-ink-gray-9 focus:outline-none focus:ring-1 focus:ring-black">
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-[12px] font-bold text-[#074942] uppercase tracking-wide">
+                            {{ __('Chọn Khóa học (Tùy chọn)') }}
+                        </label>
+                        <select v-model="selectedCourse" class="w-full text-sm rounded-xl border border-[#E0F2F1] p-2.5 bg-[#F4F8F8] text-[#183D3C] focus:outline-none focus:ring-1 focus:ring-[#005754] focus:border-[#005754] transition-colors">
                             <option :value="null">-- {{ __('Không chọn (Tạo tự do / Theo chủ đề bên dưới)') }} --</option>
                             <option v-for="c in coursesList" :key="c.name" :value="c.name">
                                 {{ c.title }}
@@ -21,8 +23,9 @@
                         v-model="topic"
                         type="text"
                         :label="__('Chủ đề / Yêu cầu')"
-                        :placeholder="__('Ví dụ: Giới thiệu lập trình Python, Lịch sử thế giới, v.v.')"
+                        :placeholder="__('Ví dụ: Giới thiệu lập trình Python, Lịch sử thế giới...')"
                         required
+                        class="[&>label]:!text-[#074942] [&>label]:!font-bold [&>label]:!uppercase [&>label]:!text-[12px]"
                     />
                     
                     <div class="grid grid-cols-2 gap-4">
@@ -32,6 +35,7 @@
                             :label="__('Số lượng câu hỏi')"
                             :min="1"
                             :max="20"
+                            class="[&>label]:!text-[#074942] [&>label]:!font-bold [&>label]:!uppercase [&>label]:!text-[12px]"
                         />
                         <FormControl
                             v-model="difficulty"
@@ -42,6 +46,7 @@
                                 { label: __('Trung bình'), value: 'Medium' },
                                 { label: __('Khó'), value: 'Hard' },
                             ]"
+                            class="[&>label]:!text-[#074942] [&>label]:!font-bold [&>label]:!uppercase [&>label]:!text-[12px]"
                         />
                     </div>
 
@@ -49,25 +54,27 @@
                         v-model="additionalInstructions"
                         type="textarea"
                         :label="__('Hướng dẫn bổ sung (Tùy chọn)')"
-                        :placeholder="__('Ví dụ: Bao gồm các đoạn mã, tập trung vào chủ đề phụ cụ thể, v.v.')"
+                        :placeholder="__('Ví dụ: Bao gồm các đoạn mã, tập trung vào chủ đề phụ...')"
+                        class="[&>label]:!text-[#074942] [&>label]:!font-bold [&>label]:!uppercase [&>label]:!text-[12px]"
                     />
                 </div>
 
-                <!-- PHẦN 2: NÚT BẤM (ĐẶT TRỰC TIẾP TRONG BODY, NẰM DƯỚI THANH CUỘN) -->
-                <div class="flex justify-end gap-2 pt-4 border-t mt-4">
-                    <Button variant="subtle" @click="show = false">
+                <!-- PHẦN 2: NÚT BẤM -->
+                <div class="flex justify-end gap-3 pt-4 border-t border-gray-100 mt-5">
+                    <Button variant="ghost" class="!text-gray-500 hover:!text-gray-800 font-medium" @click="show = false">
                         {{ __('Hủy') }}
                     </Button>
                     <Button
                         variant="solid"
                         :loading="loading"
                         :disabled="!topic"
+                        class="!bg-[#005754] hover:!bg-[#0a4542] !text-[#F2B814] border-none shadow-md px-5"
                         @click="generateQuiz"
                     >
                         <template #prefix>
                             <span class="lucide-sparkles size-4" />
                         </template>
-                        {{ __('Tạo Quiz') }}
+                        <span class="font-semibold">{{ __('Tạo Quiz') }}</span>
                     </Button>
                 </div>
 
@@ -151,3 +158,9 @@ const generateQuiz = async () => {
     }
 }
 </script>
+
+<style scoped>
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
+</style>
