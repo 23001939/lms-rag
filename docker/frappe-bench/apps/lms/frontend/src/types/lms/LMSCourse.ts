@@ -29,6 +29,8 @@ export interface LMSCourse {
 	image?: string
 	/**	Tags : Data	*/
 	tags?: string
+	/**	Số giờ học : Float	*/
+	course_hours?: number
 	/**	Upcoming : Check	*/
 	upcoming?: 0 | 1
 	/**	Chapters : Table - Chapter Reference	*/

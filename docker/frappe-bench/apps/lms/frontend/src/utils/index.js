@@ -548,6 +548,12 @@ const getSidebarItems = (forMobile = false) => {
 					activeFor: ['Statistics'],
 				},
 				{
+					label: 'Learning Tracker',
+					icon: 'Clock',
+					to: 'LearningTracker',
+					activeFor: ['LearningTracker'],
+				},
+				{
 					label: 'Contact Us',
 					icon: settings.data?.contact_us_url ? 'Headset' : 'Mail',
 					to: settings.data?.contact_us_url

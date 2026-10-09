@@ -10,6 +10,7 @@
   "title",
   "video_link",
   "tags",
+  "course_hours",
   "column_break_3",
   "instructors",
   "category",
@@ -104,6 +105,12 @@
    "fieldname": "tags",
    "fieldtype": "Data",
    "label": "Tags"
+  },
+  {
+   "default": "0",
+   "fieldname": "course_hours",
+   "fieldtype": "Float",
+   "label": "Số giờ học"
   },
   {
    "default": "0",

@@ -63,6 +63,14 @@
 				</MultiSelect>
 			</div>
 			<FormControl
+				v-model.number="doc.course_hours"
+				type="number"
+				:label="__('Course Hours (Số giờ học)')"
+				:placeholder="__('e.g. 10')"
+				variant="outline"
+				@input="markDirty()"
+			/>
+			<FormControl
 				v-model="doc.short_introduction"
 				type="textarea"
 				:rows="3"

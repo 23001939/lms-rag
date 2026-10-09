@@ -85,6 +85,11 @@ const routes = [
 		component: () => import('@/pages/Statistics.vue'),
 	},
 	{
+		path: '/learning-tracker',
+		name: 'LearningTracker',
+		component: () => import('@/pages/LearningTracker.vue'),
+	},
+	{
 		path: '/user/:username',
 		name: 'Profile',
 		component: () => import('@/pages/Profile.vue'),
