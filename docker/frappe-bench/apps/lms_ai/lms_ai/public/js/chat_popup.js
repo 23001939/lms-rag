@@ -9,7 +9,7 @@ if (window.self !== window.top) {
 // ==========================================
 else if (!window.LMS_CHAT_INITIALIZED) {
     window.LMS_CHAT_INITIALIZED = true;
-    console.log("🚀 LMS AI Chat Script đang chạy (Đã bật Auto-Close & Bắt buộc mặc định Chat tự do)...");
+    // console.log("🚀 LMS AI Chat Script đang chạy (Đã bật Auto-Close & Bắt buộc mặc định Chat tự do)...");
 
     function injectLMSChat() {
         // ==========================================
