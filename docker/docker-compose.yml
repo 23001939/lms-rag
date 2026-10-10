@@ -24,13 +24,12 @@ services:
       - "6333:6333" # Port HTTP của Qdrant
       - "6334:6334" # Port gRPC của Qdrant
     environment:
-    - QDRANT__TELEMETRY_DISABLED=true
+      - QDRANT__TELEMETRY_DISABLED=true
     volumes:
       - qdrant-data:/qdrant/storage
 
-  # Thêm service 9route LLM
   9router:
-    image: decolua/9router:latest # <-- Vui lòng thay bằng tên image thực tế của 9route
+    image: decolua/9router:latest
     ports:
       - "20128:20128"
 
@@ -39,18 +38,18 @@ services:
     command: bash /workspace/init.sh
     environment:
       - SHELL=/bin/bash
-      - HTTP_PROXY=http://10.53.120.1:8080
-      - HTTPS_PROXY=http://10.53.120.1:8080
-      - http_proxy=http://10.53.120.1:8080
-      - https_proxy=http://10.53.120.1:8080
-      # Quan trọng: Thêm 9route vào NO_PROXY để tránh đi qua proxy
-      - NO_PROXY=localhost,127.0.0.1,mariadb,redis,chromadb,9router
+      #- HTTP_PROXY=http://10.53.120.1:8080
+      #- HTTPS_PROXY=http://10.53.120.1:8080
+      #- http_proxy=http://10.53.120.1:8080
+      #- https_proxy=http://10.53.120.1:8080
+      # Đã sửa chromadb thành qdrant cho khớp với service name bên trên
+      - NO_PROXY=localhost,127.0.0.1,mariadb,redis,qdrant,9router
     working_dir: /workspace
     volumes:
       - .:/workspace
     ports:
-      - 8000:8000
-      - 9000:9000
+      - "8000:8000"
+      - "9000:9000"
 
 volumes:
   mariadb-data:

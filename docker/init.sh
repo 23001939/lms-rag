@@ -1,50 +1,78 @@
 #!/bin/bash
+set -e  # Dừng script ngay lập tức nếu có lệnh bị lỗi
 
-# Export PATH đặt lên đầu để cả tiến trình init và start đều nhận được Node
+# Export PATH
 export PATH="${NVM_DIR}/versions/node/v${NODE_VERSION_DEVELOP}/bin/:${PATH}"
 
-# Dùng đường dẫn tương đối (vì lúc này đang đứng ở /workspace)
-if [ -d "frappe-bench/apps/frappe" ]; then
-    echo "Bench already exists, skipping init"
-    cd frappe-bench
-else
-    echo "Creating new bench in workspace..."
+# Chờ MariaDB sẵn sàng
+echo "Waiting for MariaDB..."
+while ! nc -z mariadb 3306; do
+    sleep 2
+done
+echo "MariaDB is up and running."
+
+# 1. Khởi tạo bench nếu chưa có
+if [ ! -d "frappe-bench" ]; then
+    echo "Creating new bench..."
     bench init --skip-redis-config-generation frappe-bench
-    
     cd frappe-bench
 
-    # Cấu hình các dịch vụ
     bench set-mariadb-host mariadb
     bench set-redis-cache-host redis://redis:6379
     bench set-redis-queue-host redis://redis:6379
     bench set-redis-socketio-host redis://redis:6379
 
-    # CHỈ xóa redis khỏi Procfile, GIỮ LẠI watch để tự cập nhật frontend
     sed -i '/redis/d' ./Procfile
 
-    # Quá trình này sẽ tải code về thư mục máy thật của bạn
+    # Lưu ý: Thay đổi URL git chính xác của team nếu là repo private
     bench get-app payments
     bench get-app lms
 
-    bench new-site lms.localhost \
-    --force \
-    --mariadb-root-password 123 \
-    --admin-password admin \
-    --no-mariadb-socket
-
-    bench --site lms.localhost install-app payments
-    bench --site lms.localhost install-app lms
-    
-    # Bật developer_mode để tự cập nhật Backend (Python)
-    bench --site lms.localhost set-config developer_mode 1
-    bench --site lms.localhost clear-cache
-    bench use lms.localhost
-
-    # ---> THÊM ĐOẠN NÀY ĐỂ CÀI THƯ VIỆN AI <---
-    echo "Installing AI dependencies..."
-    # Cài đặt client ChromaDB, thư viện Gemini, chia text và cross-encoder cho Rerank
+    echo "Installing AI dependencies for the first time..."
     bench pip install qdrant-client openai sentence-transformers langchain-text-splitters pypdf langchain-community unstructured python-docx python-pptx openpyxl
-    
+else
+    echo "Bench folder already exists."
+    cd frappe-bench
 fi
 
+# 2. Khởi tạo Site
+if [ ! -d "sites/lms.localhost" ]; then
+    echo "Site lms.localhost does not exist yet."
+
+    if [ -f "../backup.sql" ]; then
+        echo "Found backup.sql! Restoring database..."
+        
+        bench new-site lms.localhost \
+            --force \
+            --mariadb-root-password 123 \
+            --admin-password admin \
+            --no-mariadb-socket
+
+        DB_NAME=$(python3 -c "import json; print(json.load(open('sites/lms.localhost/site_config.json'))['db_name'])" 2>/dev/null || echo "_d100d2879466358e")
+        
+        echo "Restoring database into $DB_NAME..."
+        mysql -h mariadb -u root -p123 "$DB_NAME" < ../backup.sql
+        
+        bench --site lms.localhost migrate
+    else
+        echo "No backup.sql found. Creating fresh site..."
+        
+        bench new-site lms.localhost \
+            --force \
+            --mariadb-root-password 123 \
+            --admin-password admin \
+            --no-mariadb-socket
+
+        bench --site lms.localhost install-app payments
+        bench --site lms.localhost install-app lms
+        bench --site lms.localhost install-app lms_ai
+    fi
+    
+    bench --site lms.localhost set-config developer_mode 1
+    bench --site lms.localhost clear-cache
+else
+    echo "Site lms.localhost already exists. Skipping site creation."
+fi
+
+bench use lms.localhost
 bench start
