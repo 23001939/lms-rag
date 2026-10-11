@@ -33,9 +33,6 @@ if [ ! -d "$BENCH_DIR/apps/frappe" ]; then
     bench get-app payments
     bench get-app lms
     bench get-app lms_ai
-
-    echo "Installing AI dependencies for the first time..."
-    bench pip install qdrant-client openai sentence-transformers langchain-text-splitters pypdf langchain-community unstructured python-docx python-pptx openpyxl
 else
     echo "Bench folder already exists at $BENCH_DIR."
     cd "$BENCH_DIR"
@@ -62,12 +59,6 @@ if ! ./env/bin/python -c 'import payments, lms, lms_ai' >/dev/null 2>&1; then
     ./env/bin/python -m pip install -e ./apps/lms
     ./env/bin/python -m pip install -e ./apps/payments
     ./env/bin/python -m pip install -e ./apps/lms_ai
-fi
-
-if ! ./env/bin/python -c 'import importlib.util, sys; sys.exit(any(importlib.util.find_spec(name) is None for name in ("qdrant_client", "openai", "sentence_transformers")))' >/dev/null 2>&1; then
-    echo "AI Python dependencies are missing. Installing them..."
-    ./env/bin/python -m pip install 'torch==2.14.1+cpu' --index-url https://download.pytorch.org/whl/cpu --extra-index-url https://pypi.org/simple
-    ./env/bin/python -m pip install qdrant-client openai sentence-transformers langchain-text-splitters pypdf langchain-community unstructured python-docx python-pptx openpyxl
 fi
 
 # A bind-mounted bench can also lose its ignored Node dependency tree.
@@ -186,9 +177,15 @@ for host in sorted(set(hosts) | {"%"}):
     print(f"GRANT ALL PRIVILEGES ON `{db_name}`.* TO {account};")
 PY
 
-if [ -f sites/lms.localhost/.restore_pending_migrate ]; then
+# Sync changed schema once; subsequent restarts recover pending ingestion jobs.
+SCHEMA_HASH=$(sha256sum apps/lms_ai/lms_ai/lms_ai/doctype/rag_document/rag_document.json apps/lms_ai/lms_ai/lms_ai/doctype/lms_chat_history/lms_chat_history.json apps/lms_ai/lms_ai/hooks.py | sha256sum | cut -d ' ' -f 1)
+SCHEMA_MARKER="sites/lms.localhost/.openkb_schema_hash"
+if [ -f sites/lms.localhost/.restore_pending_migrate ] || [ "$(cat "$SCHEMA_MARKER" 2>/dev/null || true)" != "$SCHEMA_HASH" ]; then
     bench --site lms.localhost migrate
+    printf '%s\n' "$SCHEMA_HASH" > "$SCHEMA_MARKER"
     rm -f sites/lms.localhost/.restore_pending_migrate
+else
+    bench --site lms.localhost execute lms_ai.openkb_jobs.recover_pending
 fi
 
 bench start

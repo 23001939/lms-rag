@@ -9,7 +9,10 @@
  "field_order": [
   "user",
   "role",
-  "message"
+  "message",
+  "context_id",
+  "document_scope",
+  "references_json"
  ],
  "fields": [
   {
@@ -28,6 +31,27 @@
    "fieldname": "message",
    "fieldtype": "Text",
    "label": "message"
+  },
+  {
+   "fieldname": "context_id",
+   "fieldtype": "Data",
+   "label": "context_id",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "document_scope",
+   "fieldtype": "Data",
+   "label": "document_scope",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "references_json",
+   "fieldtype": "Long Text",
+   "label": "references_json",
+   "read_only": 1,
+   "hidden": 1
   }
  ],
  "grid_page_length": 50,

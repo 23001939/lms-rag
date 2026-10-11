@@ -8,9 +8,12 @@
  "engine": "InnoDB",
  "field_order": [
   "title",
-  "category",
   "status",
-  "upload_tai_lieu"
+  "upload_tai_lieu",
+  "openkb_kb",
+  "openkb_hash",
+  "indexed_at",
+  "index_error"
  ],
  "fields": [
   {
@@ -20,24 +23,47 @@
    "length": 1000
   },
   {
-   "fieldname": "category",
-   "fieldtype": "Link",
-   "label": "category",
-   "length": 1000,
-   "link_filters": "[]",
-   "options": "RAG Category"
-  },
-  {
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "status",
    "length": 1000,
-   "options": "Pending\nProcessing\nCompleted\nFailed"
+   "options": "Pending\nProcessing\nCompleted\nFailed",
+   "default": "Pending",
+   "read_only": 1
   },
   {
    "fieldname": "upload_tai_lieu",
    "fieldtype": "Attach",
-   "label": "Upload t\u00e0i li\u1ec7u"
+   "label": "Upload tài liệu",
+   "reqd": 1
+  },
+  {
+   "fieldname": "openkb_kb",
+   "fieldtype": "Data",
+   "label": "OpenKB KB",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "openkb_hash",
+   "fieldtype": "Data",
+   "label": "File SHA-256",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "indexed_at",
+   "fieldtype": "Datetime",
+   "label": "Indexed at",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "index_error",
+   "fieldtype": "Small Text",
+   "label": "Processing error",
+   "read_only": 1,
+   "hidden": 1
   }
  ],
  "grid_page_length": 50,

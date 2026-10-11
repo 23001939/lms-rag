@@ -22,3 +22,6 @@ docker/frappe-bench/sites/lms.localhost/learning.db
 docker/frappe-bench/logs/worker.error.log
 docker/frappe-bench/chromium/chrome-linux/
 docker/frappe-bench/sites/lms.localhost/site_config.json
+docker/.env.openkb
+docker/.env.openkb-frappe
+docker/frappe-bench/sites/*/.openkb_schema_hash
