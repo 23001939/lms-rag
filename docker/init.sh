@@ -145,10 +145,50 @@ EOF
     fi
 fi
 
+# The site DB account may have been created for the old IP of the frappe
+# container. Reconcile every existing host entry and add a wildcard entry so
+# container IP changes after `docker compose down/up` don't break connections.
+python3 - <<'PY' | mysql --skip-ssl -h mariadb -u root -p123
+import json
+import re
+import subprocess
+
+with open("sites/lms.localhost/site_config.json") as config_file:
+    config = json.load(config_file)
+
+db_name = config["db_name"]
+db_user = config.get("db_user") or db_name
+db_password = config["db_password"]
+
+if not re.fullmatch(r"[A-Za-z0-9_$]+", db_name) or not re.fullmatch(r"[A-Za-z0-9_$]+", db_user):
+    raise SystemExit("Unexpected characters in site database name or user")
+
+def sql_string(value):
+    value = str(value)
+    value = value.replace("\\", "\\\\").replace("'", "''")
+    value = value.replace("\0", "\\0").replace("\n", "\\n").replace("\r", "\\r").replace("\x1a", "\\Z")
+    return "'" + value + "'"
+
+hosts = subprocess.check_output(
+    [
+        "mysql", "--skip-ssl", "-h", "mariadb", "-u", "root", "-p123",
+        "-Nse", f"SELECT Host FROM mysql.user WHERE User={sql_string(db_user)}",
+    ],
+    text=True,
+).splitlines()
+
+if "%" not in hosts:
+    print(f"CREATE USER IF NOT EXISTS {sql_string(db_user)}@'%';")
+
+for host in sorted(set(hosts) | {"%"}):
+    account = f"{sql_string(db_user)}@{sql_string(host)}"
+    print(f"ALTER USER {account} IDENTIFIED BY {sql_string(db_password)};")
+    print(f"GRANT ALL PRIVILEGES ON `{db_name}`.* TO {account};")
+PY
+
 if [ -f sites/lms.localhost/.restore_pending_migrate ]; then
     bench --site lms.localhost migrate
     rm -f sites/lms.localhost/.restore_pending_migrate
 fi
 
-bench use lms.localhost
 bench start

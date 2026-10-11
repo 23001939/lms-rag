@@ -4,7 +4,7 @@ services:
   mariadb:
     image: mariadb:10.8
     ports:
-      - "3306:3306"
+      - "127.0.0.1:3306:3306"
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
@@ -32,6 +32,9 @@ services:
     image: decolua/9router:latest
     ports:
       - "20128:20128"
+    environment:
+      INITIAL_PASSWORD: "123456"
+    
 
   frappe:
     image: frappe/bench:latest
